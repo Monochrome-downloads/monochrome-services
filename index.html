@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monochrome services — companion app</title>
+<meta name="description" content="Monochrome services is a small Mac helper app that powers local processing for the Monochrome Studio Tools Figma plugins.">
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #5a5a5a;
+    --card-bg: #f6f6f7;
+    --border: #e2e2e4;
+    --accent: #2f6feb;
+    --accent-fg: #ffffff;
+    --code-bg: #eef0f2;
+    --good: #1f8a4c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115;
+      --fg: #eaecef;
+      --muted: #9aa1ab;
+      --card-bg: #171a20;
+      --border: #2a2e37;
+      --accent: #5b9dff;
+      --accent-fg: #0b0e14;
+      --code-bg: #1c2028;
+      --good: #34c77a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+  header { text-align: center; margin-bottom: 48px; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 12px;
+    margin-bottom: 20px;
+  }
+  .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); }
+  h1 { font-size: 30px; margin: 0 0 12px; letter-spacing: -0.01em; }
+  .tagline { color: var(--muted); font-size: 17px; margin: 0 auto; max-width: 46ch; }
+  .download-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+    margin: 32px 0 40px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: var(--accent-fg);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    transition: opacity 0.15s ease;
+  }
+  .btn:hover { opacity: 0.88; }
+  .meta { margin-top: 12px; font-size: 13px; color: var(--muted); }
+  h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 40px 0 16px;
+  }
+  .steps { padding-left: 22px; margin: 0; }
+  .steps li { margin-bottom: 10px; }
+  code {
+    background: var(--code-bg);
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: 0.92em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  .trust-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 8px;
+  }
+  @media (max-width: 520px) { .trust-grid { grid-template-columns: 1fr; } }
+  .trust-item {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    background: var(--card-bg);
+  }
+  .trust-item .t-title { font-weight: 600; font-size: 14.5px; margin-bottom: 4px; }
+  .trust-item .t-body { color: var(--muted); font-size: 13.5px; }
+  .faq dt { font-weight: 600; margin-top: 18px; }
+  .faq dd { margin: 6px 0 0; color: var(--muted); }
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+  }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="badge"><span class="dot"></span> macOS · signed &amp; notarized by Apple</div>
+    <h1>Monochrome services</h1>
+    <p class="tagline">A small menu-bar helper that runs certain local, disk-touching parts of the
+      Monochrome Studio Tools Figma plugins — like InDesign export — that can't happen inside
+      Figma's own sandbox.</p>
+  </header>
+
+  <div class="download-card">
+    <a class="btn" href="https://github.com/Monochrome-downloads/monochrome-services/releases/latest/download/Monochrome%20services.dmg" id="download-link">
+      ⬇ Download for Mac
+    </a>
+    <div class="meta">Requires macOS · Apple Silicon &amp; Intel · <a href="https://github.com/Monochrome-downloads/monochrome-services/releases/latest">release notes</a></div>
+  </div>
+
+  <h2>Setup</h2>
+  <ol class="steps">
+    <li>Open the downloaded <code>.dmg</code> and drag <strong>Monochrome services</strong> into
+      your <strong>Applications</strong> folder.</li>
+    <li>Open <strong>Monochrome services</strong> from Applications or Spotlight. It appears as a
+      small icon in your menu bar — nothing else happens, no window opens.</li>
+    <li>Click the menu-bar icon → <strong>Copy pairing token to clipboard</strong>.</li>
+    <li>Back in the Figma plugin, paste the token into the "companion not detected" panel and it
+      will connect automatically. This is a one-time step — the plugin remembers it.</li>
+  </ol>
+
+  <h2>What it does, and doesn't do</h2>
+  <div class="trust-grid">
+    <div class="trust-item">
+      <div class="t-title">Loopback only</div>
+      <div class="t-body">Listens only on <code>127.0.0.1</code> — your own machine. It never
+        accepts connections from your network or the internet.</div>
+    </div>
+    <div class="trust-item">
+      <div class="t-title">Token-gated</div>
+      <div class="t-body">Every request must carry the pairing token you copied — an unrelated app
+        or webpage can't talk to it, even though it's local.</div>
+    </div>
+    <div class="trust-item">
+      <div class="t-title">Nothing leaves your machine</div>
+      <div class="t-body">It only relays data between the Figma plugin, already open in your
+        browser or desktop app, and files/exports on your own disk.</div>
+    </div>
+    <div class="trust-item">
+      <div class="t-title">Opens when you open it</div>
+      <div class="t-body">No login-item, no background daemon. It only runs while you've launched
+        it, and auto-stops after 30 minutes idle.</div>
+    </div>
+  </div>
+
+  <h2>FAQ</h2>
+  <dl class="faq">
+    <dt>Why does a Figma plugin need to install anything?</dt>
+    <dd>Figma plugins run inside a sandboxed browser context and can't write files like a
+      real <code>.idml</code> export, or read certain local resources, directly. Monochrome
+      services is the small bridge that does that part on your own Mac.</dd>
+
+    <dt>Is this safe to run?</dt>
+    <dd>It's signed and notarized by Apple under a real Developer ID, same as any other
+      distributed macOS app — Apple's own Gatekeeper checks it before it ever opens. Source for
+      what it does is scoped tightly on purpose: loopback-only, token-gated, idle-timeout (see
+      above).</dd>
+
+    <dt>macOS says it's from an unidentified developer / won't open</dt>
+    <dd>That shouldn't happen with a notarized build — if you see it, please make sure you
+      downloaded from this page (not a re-shared copy), and let us know.</dd>
+
+    <dt>How do I stop it / free up the port?</dt>
+    <dd>Click the menu-bar icon → <strong>Stop companion</strong>, or <strong>Quit</strong>. It
+      also stops itself automatically after 30 minutes with no activity.</dd>
+  </dl>
+
+  <footer>
+    Monochrome services · part of the Monochrome Studio Tools plugin family
+  </footer>
+
+</div>
+</body>
+</html>
