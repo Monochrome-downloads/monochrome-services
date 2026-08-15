@@ -70,10 +70,11 @@
   .hero-band svg { height: 100%; width: auto; position: relative; z-index: 1; }
   .hero-band path { fill: #fff; }
 
-  /* Product tile — rounded corners, black stroke, fixed white background (the f-i-tile artwork's
-     own colors — a white backing square, near-black outlines — are calibrated for a light
-     background, so this card intentionally doesn't invert in dark mode either, matching the
-     hero band's fixed-black treatment above it). */
+  /* Product tile — rounded corners, black stroke, white background in light mode. In dark mode
+     it inverts: no fill (transparent, so it sits on the page background), white stroke instead
+     of black — and the artwork's own near-black outline/letterforms invert to white too (see the
+     attribute-selector overrides below), so the whole mark reads as a white line-drawing rather
+     than a black-on-white card. */
   .tool-tile {
     display: flex;
     justify-content: center;
@@ -83,6 +84,17 @@
     background: #fff;
     padding: 36px 49px;
     margin: 16px auto;
+  }
+  @media (prefers-color-scheme: dark) {
+    .tool-tile { background: none; border-color: #fff; }
+    /* The artwork's own inline fill/stroke attributes (not CSS) — matched by value and
+       overridden here, since these presentation attributes act as the lowest-priority CSS and
+       a stylesheet rule always wins over them. */
+    .tool-tile svg rect[fill="#fff"] { fill: none; }
+    .tool-tile svg path[fill="#010101"],
+    .tool-tile svg rect[fill="#010101"] { fill: #fff; }
+    .tool-tile svg path[stroke="#231f20"] { stroke: #fff; }
+    .tool-tile svg polygon[fill="#231f20"] { fill: #fff; }
   }
   .tool-tile svg { display: block; height: 85px; width: auto; }
   .badge {
