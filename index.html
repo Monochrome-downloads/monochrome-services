@@ -93,7 +93,8 @@
     .tool-tile svg rect[fill="#fff"] { fill: none; }
     .tool-tile svg path[fill="#010101"],
     .tool-tile svg rect[fill="#010101"] { fill: #fff; }
-    .tool-tile svg path[stroke="#231f20"] { stroke: #fff; }
+    .tool-tile svg path[stroke="#231f20"],
+    .tool-tile svg line[stroke="#231f20"] { stroke: #fff; }
     .tool-tile svg polygon[fill="#231f20"] { fill: #fff; }
   }
   .tool-tile svg { display: block; height: 85px; width: auto; }
@@ -492,7 +493,11 @@
       shape: valueNoise2D(Math.floor(Math.random() * 1e6)),
       tint: valueNoise2D(Math.floor(Math.random() * 1e6)),
       seed: Math.floor(Math.random() * 1e6),
-      cxFrac: Math.random(), cyFrac: Math.random()   // the one persistent organism's spawn point, chosen once
+      // Fixed at center, not random — the hero-band's Monochrome logo is centered via flexbox
+      // (align-items/justify-content: center) in both axes, and the organism reads best growing
+      // in directly behind it (user-observed, 2026-08-15) rather than at an arbitrary point that
+      // might land off to the side.
+      cxFrac: 0.5, cyFrac: 0.5
     };
     if (raf) cancelAnimationFrame(raf);
     const t0 = performance.now(); let last = -1e9;
