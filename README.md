@@ -1,7 +1,7 @@
-# Monochrome services
+# Monochrome bridge
 
 Distribution-only repo. This does not contain source code — it hosts the signed, notarized
-macOS release of **Monochrome services**, the shared local companion app for the Monochrome
+macOS release of **Monochrome bridge**, the shared local companion app for the Monochrome
 Studio Tools Figma plugin family (currently: InDesign Export; more plugins share this same
 companion over time rather than shipping their own).
 

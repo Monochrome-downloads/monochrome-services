@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Monochrome services — companion app</title>
-<meta name="description" content="Monochrome services is a small Mac helper app that powers local processing for the Monochrome Studio Tools Figma plugins.">
+<title>Monochrome bridge — companion app</title>
+<meta name="description" content="Monochrome bridge is a small Mac helper app that powers local processing for the Monochrome Studio Tools Figma plugins.">
 <style>
   :root {
     --bg: #ffffff;
@@ -41,9 +41,50 @@
   .wrap {
     max-width: 720px;
     margin: 0 auto;
-    padding: 64px 24px 96px;
+    padding: 24px 24px 96px;
   }
   header { text-align: center; margin-bottom: 48px; }
+
+  /* Full-bleed masthead — deliberately fixed black in both themes, not the theme-flipping
+     --bg/--fg pair, so it reads as a constant brand band rather than page chrome. Height is the
+     measured rendered height of .download-card at desktop width (139px, from getBoundingClientRect
+     — 138.9453125 rounded), so the two "cards" on the page match. 10% of that height is reserved
+     as top/bottom padding around the logo (13.9px each side), per spec. */
+  .hero-band {
+    background: #000;
+    width: 100%;
+    height: 139px;
+    box-sizing: border-box;
+    padding: 13.9px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Animated dot field — ported from Bloom's Creatives-card backdrop (bloom/src/ui/overviewHero.js,
+     _startOvDots/_paintOvDots + shared/math.js's _valueNoise2D). Same noise + palette + redraw
+     cadence; the directional bottom-right presence bias (there, clearing space for the card's
+     top-left title) is dropped for a uniform wash, since the hero band has no text corner to avoid. */
+  .hero-band canvas.hero-dots { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero-band svg { height: 100%; width: auto; position: relative; z-index: 1; }
+  .hero-band path { fill: #fff; }
+
+  /* Product tile — rounded corners, black stroke, fixed white background (the f-i-tile artwork's
+     own colors — a white backing square, near-black outlines — are calibrated for a light
+     background, so this card intentionally doesn't invert in dark mode either, matching the
+     hero band's fixed-black treatment above it). */
+  .tool-tile {
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    border: 1px solid #000;
+    border-radius: 28px;
+    background: #fff;
+    padding: 36px 49px;
+    margin: 16px auto;
+  }
+  .tool-tile svg { display: block; height: 85px; width: auto; }
   .badge {
     display: inline-flex;
     align-items: center;
@@ -57,6 +98,9 @@
     margin-bottom: 20px;
   }
   .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); }
+  /* Standalone placement (below .download-card, outside <header>'s text-align:center) — block-
+     level flex sized to content + auto margins, the same centering pattern as .tool-tile. */
+  .badge-standalone { display: flex; width: fit-content; margin: 0 auto 32px; }
   h1 { font-size: 30px; margin: 0 0 12px; letter-spacing: -0.01em; }
   .tagline { color: var(--muted); font-size: 17px; margin: 0 auto; max-width: 46ch; }
   .download-card {
@@ -127,15 +171,73 @@
 </style>
 </head>
 <body>
+<div class="hero-band" aria-hidden="true">
+  <canvas class="hero-dots"></canvas>
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 835.51 564.39">
+        <g>
+          <path d="M10.59,388.66c0-.75.6-1.34,1.34-1.34h7.9c.89,0,1.49.45,1.94,1.19l24.75,52.79,24.46-52.79c.45-.75,1.19-1.19,1.94-1.19h7.9c.9,0,1.34.6,1.34,1.34v103.19c0,.75-.45,1.34-1.34,1.34h-7.9c-.75,0-1.34-.6-1.34-1.34v-81.87l-21.47,45.48c-.45.75-1.19,1.04-1.94,1.04h-3.28c-.75,0-1.64-.3-1.94-1.04l-21.77-45.48v81.87c0,.75-.45,1.34-1.34,1.34h-7.9c-.75,0-1.34-.6-1.34-1.34v-103.19Z"/>
+          <path d="M134.05,417.14c21.47,0,35.79,15.66,35.79,38.77s-14.32,38.77-35.79,38.77-35.94-15.51-35.94-38.77,14.32-38.77,35.94-38.77ZM134.05,485.89c15.36,0,25.5-12.23,25.5-29.97s-10.14-29.82-25.5-29.82-25.65,12.23-25.65,29.82,10.29,29.97,25.65,29.97Z"/>
+          <path d="M187.33,419.97c0-.75.6-1.34,1.34-1.34h7.6c.75,0,1.34.6,1.34,1.34v8.95c7.75-7.01,17.9-11.78,28.18-11.78,13.87,0,26.54,8.5,26.54,26.69v48.02c0,.75-.6,1.34-1.34,1.34h-7.6c-.75,0-1.34-.6-1.34-1.34v-46.38c0-14.17-8.65-18.79-17.75-18.79-9.99,0-19.54,5.82-26.69,12.83v52.34c0,.75-.6,1.34-1.34,1.34h-7.6c-.75,0-1.34-.6-1.34-1.34v-71.88Z"/>
+          <path d="M305.26,417.14c21.47,0,35.79,15.66,35.79,38.77s-14.32,38.77-35.79,38.77-35.94-15.51-35.94-38.77,14.32-38.77,35.94-38.77ZM305.26,485.89c15.36,0,25.5-12.23,25.5-29.97s-10.14-29.82-25.5-29.82-25.65,12.23-25.65,29.82,10.29,29.97,25.65,29.97Z"/>
+          <path d="M415.78,434.29c-.6.6-1.34.45-1.94-.15-4.62-5.07-11.48-8.05-19.39-8.05-16.4,0-27.74,12.23-27.74,29.82s11.33,29.97,27.74,29.97c7.75,0,14.91-3.13,19.54-8.05.45-.6,1.34-.75,1.94-.3,1.04.89,5.07,3.13,6.11,4.03.6.45.75,1.19.3,1.79-6.56,7.16-16.25,11.33-27.89,11.33-22.82,0-38.03-15.51-38.03-38.77s15.21-38.77,38.03-38.77c11.78,0,21.33,4.18,27.89,11.48.45.6.3,1.34-.3,1.79l-6.26,3.88Z"/>
+          <path d="M438.13,388.66c0-.75.6-1.34,1.34-1.34h7.61c.75,0,1.34.6,1.34,1.34l.3,40.71c7.75-7.01,18.04-12.23,28.48-12.23,13.87,0,26.54,8.5,26.54,26.69v48.02c0,.75-.6,1.34-1.34,1.34h-7.61c-.89,0-1.34-.6-1.34-1.34v-46.38c0-14.17-8.8-18.79-17.9-18.79-9.99,0-19.68,5.67-26.84,12.68l.3,52.49c0,.75-.6,1.34-1.34,1.34h-7.61c-.75,0-1.34-.6-1.34-1.34l-.6-103.19Z"/>
+          <path d="M540.25,428.17c-4.17,0-7.01,2.68-7.01,6.86v56.82c0,.75-.6,1.34-1.34,1.34h-7.61c-.75,0-1.34-.6-1.34-1.34v-57.71c0-9.25,6.26-15.51,15.51-15.51h25.2c.75,0,1.34.6,1.34,1.34v6.86c0,.75-.6,1.34-1.34,1.34h-23.41Z"/>
+          <path d="M611.82,417.14c21.47,0,35.79,15.66,35.79,38.77s-14.32,38.77-35.79,38.77-35.94-15.51-35.94-38.77,14.32-38.77,35.94-38.77ZM611.82,485.89c15.36,0,25.5-12.23,25.5-29.97s-10.14-29.82-25.5-29.82-25.65,12.23-25.65,29.82,10.29,29.97,25.65,29.97Z"/>
+          <path d="M665.1,419.97c0-.75.6-1.34,1.34-1.34h7.61c.75,0,1.34.6,1.34,1.34v7.75c4.92-7.01,12.08-10.59,18.34-10.59,7.75,0,12.38,3.73,14.02,11.48,4.92-7.46,12.38-11.48,18.94-11.48,9.99,0,14.76,6.26,14.76,19.24v55.47c0,.75-.6,1.34-1.34,1.34h-7.61c-.89,0-1.34-.6-1.34-1.34v-53.83c0-9.39-2.09-11.33-7.01-11.33-7.16,0-12.08,6.41-15.66,13.12v52.04c0,.75-.6,1.34-1.34,1.34h-7.61c-.89,0-1.34-.6-1.34-1.34v-53.83c0-9.39-2.09-11.33-7.01-11.33-7.16,0-12.23,6.56-15.81,13.27v51.9c0,.75-.6,1.34-1.34,1.34h-7.61c-.75,0-1.34-.6-1.34-1.34v-71.88Z"/>
+          <path d="M794.72,485.89c10.74,0,18.79-5.97,22.67-15.66.15-.6.89-1.04,1.64-1.04h8.35c.9,0,1.19.6,1.04,1.34-4.03,15.21-17.15,24.16-33.7,24.16-21.62,0-35.94-15.66-35.94-38.77s14.32-38.77,35.94-38.77,36.24,16.4,35.79,39.37c-.15.75-.75,1.34-1.49,1.34h-59.95c.75,16.4,10.59,28.04,25.65,28.04ZM769.52,449.35h49.96c-2.24-13.42-11.18-23.26-24.75-23.26s-22.96,9.25-25.2,23.26Z"/>
+        </g>
+        <g>
+          <path d="M619.8,545.7c.17-.17.4-.17.57,0,2.06,2.01,5.62,3.09,8.94,3.15,4.53.12,8.77-1.78,8.77-5.79,0-8.02-19.43-3.21-19.43-14.56,0-4.7,5.27-7.34,10.66-7.34,4.13,0,7.51,1.32,9.97,3.67.17.17.17.4,0,.57l-1.03,1.09c-.17.17-.4.17-.57,0-2.12-2.12-5.27-3.09-8.37-3.21-4.36-.12-8.37,1.72-8.37,5.21,0,8.88,19.43,4.18,19.43,14.56,0,4.58-4.81,7.91-11.06,7.91-4.07,0-8.02-1.32-10.55-3.61-.17-.17-.17-.4,0-.57l1.03-1.09Z"/>
+          <path d="M648.63,521.75c.23,0,.46.17.57.4l10.6,25.56,10.95-25.56c.11-.23.34-.4.57-.4h1.72c.23,0,.34.17.23.4l-14.79,34.44c-1.72,3.96-3.73,3.55-8.71,3.55-.23,0-.4-.17-.4-.4v-1.26c0-.23.17-.4.4-.4,4.93,0,5.56.12,6.53-2.12l2.35-5.56-11.98-28.25c-.11-.23,0-.4.23-.4h1.72Z"/>
+          <path d="M680.84,545.7c.17-.17.4-.17.57,0,2.06,2.01,5.62,3.09,8.94,3.15,4.53.12,8.77-1.78,8.77-5.79,0-8.02-19.43-3.21-19.43-14.56,0-4.7,5.27-7.34,10.66-7.34,4.13,0,7.51,1.32,9.97,3.67.17.17.17.4,0,.57l-1.03,1.09c-.17.17-.4.17-.57,0-2.12-2.12-5.27-3.09-8.37-3.21-4.36-.12-8.37,1.72-8.37,5.21,0,8.88,19.43,4.18,19.43,14.56,0,4.58-4.81,7.91-11.06,7.91-4.07,0-8.02-1.32-10.55-3.61-.17-.17-.17-.4,0-.57l1.03-1.09Z"/>
+          <path d="M721.59,550.4c-2.92,0-4.87-1.95-4.87-4.87v-21.72h-8.37c-.23,0-.4-.17-.4-.4v-1.26c0-.23.17-.4.4-.4h8.37v-8.31c0-.23.17-.4.4-.46l1.49-.34c.23-.06.4.11.4.34v8.77h14.73c.23,0,.4.17.4.4v1.26c0,.23-.17.4-.4.4h-14.73v21.66c0,1.72,1.15,2.87,2.87,2.87h11.86c.23,0,.4.17.4.4v1.26c0,.23-.17.4-.4.4h-12.15Z"/>
+          <path d="M752.51,548.97c4.93,0,8.65-2.81,10.26-7.34.06-.23.29-.4.52-.4l1.6.06c.23,0,.34.17.29.4-1.43,5.85-6.42,9.28-12.67,9.28-8.08,0-13.47-5.96-13.47-14.9s5.39-14.9,13.47-14.9,13.3,5.85,13.47,14.5c0,.23-.17.4-.4.4h-24.24c0,7.68,4.47,12.9,11.18,12.9ZM741.45,533.9h22.12c-.8-6.42-5.04-10.66-11.06-10.66s-10.26,4.24-11.06,10.66Z"/>
+          <path d="M773.76,522.15c0-.23.17-.4.4-.4h1.49c.23,0,.4.17.4.4v3.44c1.89-2.98,4.64-4.41,7.05-4.41,2.69,0,4.7,1.2,5.22,4.53,1.83-3.04,4.7-4.53,7.11-4.53,3.15,0,5.33,1.61,5.33,6.42v22.41c0,.23-.17.4-.4.4h-1.49c-.23,0-.4-.17-.4-.4v-22.41c0-3.67-1.03-4.36-3.04-4.36-3.15,0-5.44,2.92-6.99,5.79v20.98c0,.23-.17.4-.4.4h-1.49c-.23,0-.4-.17-.4-.4v-22.41c0-3.67-1.03-4.36-3.04-4.36-3.21,0-5.5,2.98-7.05,5.9v20.86c0,.23-.17.4-.4.4h-1.49c-.23,0-.4-.17-.4-.4v-27.85Z"/>
+          <path d="M809.45,545.7c.17-.17.4-.17.57,0,2.06,2.01,5.62,3.09,8.94,3.15,4.53.12,8.77-1.78,8.77-5.79,0-8.02-19.43-3.21-19.43-14.56,0-4.7,5.27-7.34,10.66-7.34,4.13,0,7.51,1.32,9.97,3.67.17.17.17.4,0,.57l-1.03,1.09c-.17.17-.4.17-.57,0-2.12-2.12-5.27-3.09-8.37-3.21-4.36-.12-8.37,1.72-8.37,5.21,0,8.88,19.43,4.18,19.43,14.56,0,4.58-4.81,7.91-11.06,7.91-4.07,0-8.02-1.32-10.55-3.61-.17-.17-.17-.4,0-.57l1.03-1.09Z"/>
+        </g>
+        <path d="M527.99,241.13v-34.45h-31.11v-34.45h-31.11v-34.45h-31.11v-34.45h-31.11v-34.45h-31.11v-34.45h-31.11V0h-74.52v34.45h-.04v34.45h-.04v34.45h-.04v34.45h-.04v34.45h-.04v34.45h-.04v34.45h-.04v55.71h292.58v-55.71h-31.11ZM515.44,219.24v21.9h-18.56v-21.9h18.56ZM281.04,282.32v-26.66h59.55v26.66h-59.55ZM372.43,282.32v-26.66h26.44v26.66h-26.44ZM369.73,282.32h-28.41v-26.66h28.41v26.66ZM341.32,241.13v-21.9h28.41v21.9h-28.41ZM340.59,241.13h-61.48v-21.9h61.48v21.9ZM277.18,206.68v-23.87h63.41v23.87h-63.41ZM434.65,282.32v-26.66h22.5v26.66h-22.5ZM428.01,282.32h-24.47v-26.66h24.47v26.66ZM403.54,241.13v-21.9h24.47v21.9h-24.47ZM398.87,241.13h-26.44v-21.9h26.44v21.9ZM372.43,206.68v-23.87h26.44v23.87h-26.44ZM369.73,206.68h-28.41v-23.87h28.41v23.87ZM341.32,172.24v-25.84h28.41v25.84h-28.41ZM340.59,172.24h-65.35v-25.84h65.35v25.84ZM273.32,137.79v-27.81h67.28v27.81h-67.28ZM465.76,282.32v-26.66h20.53v26.66h-20.53ZM465.76,241.13v-21.9h20.53v21.9h-20.53ZM457.16,241.13h-22.5v-21.9h22.5v21.9ZM434.65,206.68v-23.87h22.5v23.87h-22.5ZM428.01,206.68h-24.47v-23.87h24.47v23.87ZM403.54,172.24v-25.84h24.47v25.84h-24.47ZM398.87,172.24h-26.44v-25.84h26.44v25.84ZM372.43,137.79v-27.81h26.44v27.81h-26.44ZM369.73,137.79h-28.41v-27.81h28.41v27.81ZM341.32,103.34v-29.78h28.41v29.78h-28.41ZM340.59,103.34h-69.21v-29.78h69.21v29.78ZM269.45,68.89v-31.75h71.14v31.75h-71.14ZM496.88,282.32v-26.66h18.56v26.66h-18.56ZM486.3,182.82v23.87h-20.53v-23.87h20.53ZM457.16,146.4v25.84h-22.5v-25.84h22.5ZM428.01,109.98v27.81h-24.47v-27.81h24.47ZM398.87,73.56v29.78h-26.44v-29.78h26.44ZM369.73,37.14v31.75h-28.41v-31.75h28.41ZM267.52.73h73.07v33.72h-73.07V.73ZM544.58,282.32h-16.59v-26.66h16.59v26.66Z"/>
+  </svg>
+</div>
 <div class="wrap">
 
   <header>
-    <div class="badge"><span class="dot"></span> macOS · signed &amp; notarized by Apple</div>
-    <h1>Monochrome services for Figma Plugin</h1>
+    <div class="tool-tile" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="602.72 346.11 160.83 76.61">
+        <g>
+          <line x1="647.37" y1="384.23" x2="686.1" y2="384.23" stroke="none" fill="#fff"/>
+          <g>
+            <line x1="647.37" y1="384.23" x2="685.17" y2="384.23" fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width=".86"/>
+            <polygon fill="#231f20" points="682.31 387.76 681.72 387.13 684.84 384.24 681.72 381.34 682.31 380.71 686.1 384.24 682.31 387.76"/>
+          </g>
+        </g>
+        <g>
+          <path fill="#24cb71" d="M606.72,400.72c0-4.47,3.62-8.09,8.09-8.09h8.09v8.09c0,4.47-3.62,8.09-8.09,8.09s-8.09-3.62-8.09-8.09Z"/>
+          <path fill="#ff7237" d="M622.9,360.26v16.18h8.09c4.47,0,8.09-3.62,8.09-8.09s-3.62-8.09-8.09-8.09h-8.09Z"/>
+          <circle fill="#00b6ff" cx="630.93" cy="384.54" r="8.09"/>
+          <path fill="#ff3737" d="M606.72,368.35c0,4.47,3.62,8.09,8.09,8.09h8.09v-16.18h-8.09c-4.47,0-8.09,3.62-8.09,8.09Z"/>
+          <path fill="#874fff" d="M606.72,384.54c0,4.47,3.62,8.09,8.09,8.09h8.09v-16.18h-8.09c-4.47,0-8.09,3.62-8.09,8.09Z"/>
+        </g>
+        <g>
+          <rect fill="#fff" x="694.48" y="353.46" width="62.62" height="62.1"/>
+          <path fill="#010101" d="M756.84,353.71v61.58h-62.1v-61.58h62.1M757.36,353.2h-63.14v62.62h63.14v-62.62h0Z"/>
+        </g>
+        <g>
+          <path fill="#010101" d="M704.62,403.82v-39.08h7.89v39.08h-7.89Z"/>
+          <path fill="#010101" d="M747.04,403.82h-6.96v-4.16c-1.16,1.62-2.52,2.82-4.09,3.61-1.57.79-3.16,1.19-4.76,1.19-3.25,0-6.04-1.31-8.36-3.93-2.32-2.62-3.48-6.28-3.48-10.97s1.13-8.45,3.39-10.94c2.26-2.5,5.11-3.75,8.56-3.75,3.16,0,5.9,1.32,8.21,3.95v-14.08h7.49v39.08ZM727.04,389.05c0,3.02.42,5.21,1.25,6.56,1.21,1.96,2.9,2.93,5.07,2.93,1.72,0,3.19-.73,4.4-2.2,1.21-1.47,1.81-3.66,1.81-6.57,0-3.25-.59-5.59-1.76-7.03-1.17-1.43-2.68-2.15-4.51-2.15s-3.27.71-4.47,2.12c-1.2,1.41-1.8,3.52-1.8,6.33Z"/>
+        </g>
+        <rect fill="#010101" x="691.21" y="350.11" width="6.19" height="6.19"/>
+        <rect fill="#010101" x="753.36" y="350.11" width="6.19" height="6.19"/>
+        <rect fill="#010101" x="691.21" y="412.53" width="6.19" height="6.19"/>
+        <rect fill="#010101" x="753.36" y="412.53" width="6.19" height="6.19"/>
+      </svg>
+    </div>
+    <h1>Monochrome bridge for Figma Plugin</h1>
     <p class="tagline">A small menu-bar helper that runs certain local, disk-touching parts of the
       Monochrome Studio Tools Figma plugins — like InDesign export — that can't happen inside
       Figma's own sandbox.</p>
   </header>
+
+  <div class="badge badge-standalone"><span class="dot"></span> macOS · signed &amp; notarized by Apple</div>
 
   <div class="download-card">
     <a class="btn" href="https://github.com/Monochrome-downloads/monochrome-services/releases/latest/download/Monochrome-services.dmg" id="download-link">
@@ -146,12 +248,12 @@
 
   <h2>Setup</h2>
   <ol class="steps">
-    <li>Open the downloaded <code>.dmg</code> and drag <strong>Monochrome services</strong> into
+    <li>Open the downloaded <code>.dmg</code> and drag <strong>Monochrome bridge</strong> into
       your <strong>Applications</strong> folder.</li>
-    <li>Open <strong>Monochrome services</strong> from Applications or Spotlight. It appears as a
+    <li>Open <strong>Monochrome bridge</strong> from Applications or Spotlight. It appears as a
       small icon in your menu bar — nothing else happens, no window opens.</li>
     <li>Click the menu-bar icon → <strong>Copy pairing token to clipboard</strong>.</li>
-    <li>Back in the Figma plugin, paste the token into the "companion not detected" panel and it
+    <li>Back in the Figma plugin, paste the token into the "bridge not detected" panel and it
       will connect automatically. This is a one-time step — the plugin remembers it.</li>
   </ol>
 
@@ -197,14 +299,201 @@
       downloaded from this page (not a re-shared copy), and let us know.</dd>
 
     <dt>How do I stop it / free up the port?</dt>
-    <dd>Click the menu-bar icon → <strong>Stop companion</strong>, or <strong>Quit</strong>. It
+    <dd>Click the menu-bar icon → <strong>Stop bridge</strong>, or <strong>Quit</strong>. It
       also stops itself automatically after 30 minutes with no activity.</dd>
   </dl>
 
   <footer>
-    Monochrome services · part of the Monochrome Studio Tools plugin family
+    Monochrome bridge · part of the Monochrome Studio Tools plugin family
   </footer>
 
 </div>
+
+<script>
+// Hero-band dot field — ported from Bloom's Creatives-card backdrop
+// (bloom/src/ui/overviewHero.js's _startOvDots/_paintOvDots + shared/math.js's _valueNoise2D).
+// Same noise fields, palette, and ~20fps redraw cadence; the original's directional bottom-right
+// presence bias (clearing space for that card's top-left title/bottom-right count) is dropped
+// here for a uniform wash across the full-width band, which has no text corner to protect.
+(function() {
+  function valueNoise2D(seed) {
+    function hash(ix, iy) {
+      let n = (ix * 374761393 + iy * 668265263 + seed * 1013904223) >>> 0;
+      n = (n ^ (n >>> 13)); n = (n * 1274126177) >>> 0; n = (n ^ (n >>> 16)) >>> 0;
+      return n / 4294967295;
+    }
+    const sm = function(t) { return t * t * (3 - 2 * t); };
+    const lp = function(a, b, t) { return a + (b - a) * t; };
+    function oct(x, y) {
+      const x0 = Math.floor(x), y0 = Math.floor(y), tx = sm(x - x0), ty = sm(y - y0);
+      return lp(lp(hash(x0, y0), hash(x0 + 1, y0), tx), lp(hash(x0, y0 + 1), hash(x0 + 1, y0 + 1), tx), ty);
+    }
+    return function(x, y) { return 0.65 * oct(x, y) + 0.35 * oct(x * 2.3 + 11.7, y * 2.3 + 5.1); };
+  }
+  const PALETTE = ['#f07000', '#ff8fb3', '#3a9d6b', '#3d7bd6', '#e8b53a', '#9b59c8'];
+  let raf = 0, noise = null;
+
+  function paint(cv, t) {
+    if (!cv || !noise) return;
+    const par = cv.parentNode; if (!par) return;
+    const W = par.clientWidth, H = par.clientHeight;
+    if (!W || !H) return;
+    const dpr = window.devicePixelRatio || 1;
+    const pw = Math.round(W * dpr), ph = Math.round(H * dpr);
+    if (cv.width !== pw || cv.height !== ph) { cv.width = pw; cv.height = ph; cv.style.width = W + 'px'; cv.style.height = H + 'px'; }
+    const ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    const nShape = noise.shape, nTint = noise.tint, seed = noise.seed;
+    const hash = function(x, y, k) {
+      let n = (((x * 73856093) ^ (y * 19349663) ^ (((seed + k * 40503) >>> 0) * 83492791)) >>> 0);
+      n = (n ^ (n >>> 13)); n = (n * 1274126177) >>> 0; return ((n ^ (n >>> 16)) >>> 0) / 4294967295;
+    };
+    const step = 6, r = 1.4, sFreq = 1 / 72, tFreq = 1 / 90;
+    const sxo = t * 0.015, syo = t * 0.009, txo = t * 0.012;
+    // Deterministic per-cycle random pick — no mutable state, so a resize/redraw never desyncs.
+    // Combines blob index + this cycle's index + a salt into the same hash construction as the
+    // per-cell one below, seeded off noise.seed.
+    const bHash = function(i, cyc, salt) {
+      let n = (((i * 2654435761) ^ (cyc * 668265263) ^ (((seed + salt * 97) >>> 0) * 40503)) >>> 0);
+      n = (n ^ (n >>> 13)); n = (n * 1274126177) >>> 0; return ((n ^ (n >>> 16)) >>> 0) / 4294967295;
+    };
+    // ONE persistent growing/branching organism — spawns once (noise.cxFrac/cyFrac, picked once
+    // in start()), grows in (ease-out over GROW_SECS) and then just STAYS at full size/alpha —
+    // no hold-then-fade-then-respawn cycle, no shrinking, no disappearing. Real branching topology
+    // (a main body + a few satellite nodes at random angles/distances, joined by tapered limbs)
+    // instead of a single noise-warped circle — that read as "an obvious circle" no matter how
+    // much the radius was perturbed. Max body size targets ~12% of the band's area, satellites
+    // extending further out on top of that.
+    const LIMBS = 3;
+    const GROW_SECS = 6;
+    const growth = 1 - Math.pow(1 - Math.min(1, t / GROW_SECS), 3); // 0→1 once, then holds at 1 forever
+    const alpha = growth; // fades in alongside growth, then simply stays at 1 — never fades out
+    const blobs = [];
+    if (alpha > 0.02) {
+      const cx = noise.cxFrac * W, cy = noise.cyFrac * H;
+      const maxR = Math.sqrt((W * H * 0.12) / Math.PI);
+      const R = maxR * growth;
+      const nodes = [{ x: cx, y: cy, r: R * 0.62 }];
+      for (let j = 0; j < LIMBS; j++) {
+        const ang = bHash(0, 0, 10 + j) * Math.PI * 2;
+        const dist = R * (0.75 + bHash(0, 0, 20 + j) * 0.85);
+        const rad = R * (0.26 + bHash(0, 0, 30 + j) * 0.22);
+        nodes.push({ x: cx + Math.cos(ang) * dist, y: cy + Math.sin(ang) * dist, r: rad * growth });
+      }
+      blobs.push({ i: 0, cyc: 0, alpha: alpha, nodes: nodes });
+    }
+    // PASS 1 — sparse always-on ambient texture across the whole band: a trace of the original
+    // full-width wash (bloom/src/ui/overviewHero.js's _paintOvDots) underneath the blobs, at a
+    // high density threshold + low alpha so it stays a faint backdrop, not the un-contained look.
+    const AMBIENT_S = 0.90, AMBIENT_ALPHA = 0.35;
+    ctx.globalAlpha = AMBIENT_ALPHA;
+    for (let gy = 0; gy < H; gy += step) {
+      for (let gx = 0; gx < W; gx += step) {
+        const s = nShape(gx * sFreq + sxo, gy * sFreq + syo) * 0.82 + hash(gx, gy, 7) * 0.18;
+        if (s < AMBIENT_S) continue;
+        let col;
+        if (nTint(gx * tFreq + txo, gy * tFreq) > 0.62 && hash(gx, gy, 3) < 0.32) {
+          col = PALETTE[Math.floor(hash(gx, gy, 9) * PALETTE.length) % PALETTE.length];
+        } else {
+          const g = Math.floor(hash(gx, gy, 2) * 128);
+          col = 'rgb(' + g + ',' + g + ',' + g + ')';
+        }
+        ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 0.75;
+        ctx.beginPath(); ctx.arc(gx + 0.5, gy + 0.5, r, 0, Math.PI * 2); ctx.stroke();
+      }
+    }
+    // Point-to-segment distance — used below so a limb between two nodes is a real capsule
+    // (glyphs can place anywhere along it), not just glyphs at the two endpoints.
+    const distToSeg = function(px, py, x1, y1, x2, y2) {
+      const dx = x2 - x1, dy = y2 - y1;
+      const len2 = dx * dx + dy * dy;
+      let u = len2 > 0 ? ((px - x1) * dx + (py - y1) * dy) / len2 : 0;
+      u = Math.max(0, Math.min(1, u));
+      return Math.hypot(px - (x1 + u * dx), py - (y1 + u * dy));
+    };
+    // PASS 2 — the growing/branching organisms. The node/limb topology from above is used ONLY as
+    // a placement mask (where glyphs are allowed to appear) — the actual marks drawn are the same
+    // four small glyph shapes as the ambient pass (dot / hollow circle / x / diagonal), packed at
+    // every eligible grid cell (not noise-thinned) so the area reads as one connected mass rather
+    // than patchy specks, while still visibly being a "grid of glyphs" rather than solid shapes.
+    const GSTEP = 5;
+    for (let bi = 0; bi < blobs.length; bi++) {
+      const b = blobs[bi];
+      const nodes = b.nodes;
+      let maxR = 0, minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+      for (let j = 0; j < nodes.length; j++) {
+        const nd = nodes[j];
+        maxR = Math.max(maxR, nd.r);
+        minX = Math.min(minX, nd.x - nd.r); maxX = Math.max(maxX, nd.x + nd.r);
+        minY = Math.min(minY, nd.y - nd.r); maxY = Math.max(maxY, nd.y + nd.r);
+      }
+      if (maxR <= 0.5) continue;
+      const x0 = Math.max(0, Math.floor(minX / GSTEP) * GSTEP), x1e = Math.min(W, maxX);
+      const y0 = Math.max(0, Math.floor(minY / GSTEP) * GSTEP), y1e = Math.min(H, maxY);
+      for (let gy = y0; gy < y1e; gy += GSTEP) {
+        for (let gx = x0; gx < x1e; gx += GSTEP) {
+          // Membership: inside any node's circle, or within a limb capsule joining it to the body.
+          let pr = 0;
+          for (let j = 0; j < nodes.length; j++) {
+            const nd = nodes[j];
+            const d = Math.hypot(gx - nd.x, gy - nd.y);
+            pr = Math.max(pr, Math.min(1, 1 - d / Math.max(0.5, nd.r)));
+          }
+          for (let j = 1; j < nodes.length; j++) {
+            const capR = Math.max(2, nodes[j].r * 0.5);
+            const d = distToSeg(gx, gy, nodes[0].x, nodes[0].y, nodes[j].x, nodes[j].y);
+            pr = Math.max(pr, Math.min(1, 1 - d / capR));
+          }
+          if (pr <= 0.02) continue;
+          const s = nShape(gx * sFreq + sxo, gy * sFreq + syo) * 0.82 + hash(gx, gy, 7) * 0.18;
+          let col;
+          if (nTint(gx * tFreq + txo, gy * tFreq) > 0.62 && hash(gx, gy, 3) < 0.32) {
+            col = PALETTE[Math.floor(hash(gx, gy, 9) * PALETTE.length) % PALETTE.length];
+          } else {
+            const g = Math.floor(hash(gx, gy, 2) * 128);
+            col = 'rgb(' + g + ',' + g + ',' + g + ')';
+          }
+          ctx.globalAlpha = b.alpha * (pr > 0.35 ? 1 : pr / 0.35); // solid interior, soft rim at the boundary
+          ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 0.9;
+          if (s < 0.35) {
+            ctx.fillRect(gx, gy, 1.6, 1.6);
+          } else if (s < 0.55) {
+            ctx.beginPath(); ctx.arc(gx + 0.5, gy + 0.5, r, 0, Math.PI * 2); ctx.stroke();
+          } else if (s < 0.78) {
+            ctx.beginPath();
+            ctx.moveTo(gx - r, gy - r); ctx.lineTo(gx + r, gy + r);
+            ctx.moveTo(gx - r, gy + r); ctx.lineTo(gx + r, gy - r);
+            ctx.stroke();
+          } else {
+            ctx.beginPath(); ctx.moveTo(gx - r, gy - r); ctx.lineTo(gx + r, gy + r); ctx.stroke();
+          }
+        }
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function start(cv) {
+    if (!cv) return;
+    noise = {
+      shape: valueNoise2D(Math.floor(Math.random() * 1e6)),
+      tint: valueNoise2D(Math.floor(Math.random() * 1e6)),
+      seed: Math.floor(Math.random() * 1e6),
+      cxFrac: Math.random(), cyFrac: Math.random()   // the one persistent organism's spawn point, chosen once
+    };
+    if (raf) cancelAnimationFrame(raf);
+    const t0 = performance.now(); let last = -1e9;
+    (function frame(now) {
+      if (!document.body.contains(cv)) { raf = 0; return; }
+      if (now - last >= 50) { last = now; paint(cv, (now - t0) / 1000); }
+      raf = requestAnimationFrame(frame);
+    })(performance.now());
+  }
+
+  start(document.querySelector('.hero-dots'));
+  window.addEventListener('resize', function() { paint(document.querySelector('.hero-dots'), (performance.now()) / 1000); });
+})();
+</script>
 </body>
 </html>
