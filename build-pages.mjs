@@ -51,7 +51,7 @@ ${read("src/" + page.body)}
 </body>
 </html>
 `;
-  const outDir = `${here}pages-site/${page.dir}`;
+  const outDir = `${here}${page.dir}`;
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(`${outDir}/index.html`, html);
   console.log(`${page.dir}/index.html  ${html.length} bytes`);
