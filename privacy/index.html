@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IDML Export — Privacy Policy</title>
+<meta name="description" content="IDML Export collects nothing. Everything happens on your own computer — what the plugin and the Monochrome bridge companion do with your data, in full.">
+<style>
+  /* Design tokens lifted verbatim from index.html so the three pages read as one site. Only the
+     content styles below diverge — these are long-form prose pages, not a download card. */
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #5a5a5a;
+    --card-bg: #f6f6f7;
+    --border: #e2e2e4;
+    --accent: #2f6feb;
+    --accent-fg: #ffffff;
+    --code-bg: #eef0f2;
+    --good: #1f8a4c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115;
+      --fg: #eaecef;
+      --muted: #9aa1ab;
+      --card-bg: #171a20;
+      --border: #2a2e37;
+      --accent: #5b9dff;
+      --accent-fg: #0b0e14;
+      --code-bg: #1c2028;
+      --good: #34c77a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.62 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 24px 96px; }
+
+  /* Static twin of index.html's .hero-band — same fixed-black brand band and the same measured
+     139px height, minus the animated dot canvas. A privacy policy does not need a running
+     requestAnimationFrame loop behind its masthead. */
+  .hero-band {
+    background: #000;
+    width: 100%;
+    height: 139px;
+    padding: 13.9px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-band svg { height: 100%; width: auto; }
+  .hero-band path { fill: #fff; }
+
+  .crumb { margin: 24px 0 0; font-size: 13.5px; color: var(--muted); }
+  h1 { font-size: 30px; margin: 18px 0 6px; letter-spacing: -0.01em; }
+  .updated { color: var(--muted); font-size: 13.5px; margin: 0 0 32px; }
+  h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 44px 0 14px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  h3 { font-size: 17px; margin: 30px 0 8px; letter-spacing: -0.005em; }
+  p { margin: 0 0 14px; }
+  ul, ol { padding-left: 22px; margin: 0 0 14px; }
+  li { margin-bottom: 8px; }
+  a { color: var(--accent); }
+  strong { font-weight: 600; }
+  code {
+    background: var(--code-bg);
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: 0.92em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-size: 13.5px;
+    line-height: 1.5;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  /* The one-sentence summary at the top of the policy, and the free-tier note on the support
+     page — the two passages a reader most needs to not skim past. */
+  .callout {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 0 0 24px;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+  }
+  footer a { margin: 0 8px; }
+</style>
+</head>
+<body>
+<div class="hero-band" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 835.51 564.39">
+        <g>
+          <path d="M10.59,388.66c0-.75.6-1.34,1.34-1.34h7.9c.89,0,1.49.45,1.94,1.19l24.75,52.79,24.46-52.79c.45-.75,1.19-1.19,1.94-1.19h7.9c.9,0,1.34.6,1.34,1.34v103.19c0,.75-.45,1.34-1.34,1.34h-7.9c-.75,0-1.34-.6-1.34-1.34v-81.87l-21.47,45.48c-.45.75-1.19,1.04-1.94,1.04h-3.28c-.75,0-1.64-.3-1.94-1.04l-21.77-45.48v81.87c0,.75-.45,1.34-1.34,1.34h-7.9c-.75,0-1.34-.6-1.34-1.34v-103.19Z"/>
+          <path d="M134.05,417.14c21.47,0,35.79,15.66,35.79,38.77s-14.32,38.77-35.79,38.77-35.94-15.51-35.94-38.77,14.32-38.77,35.94-38.77ZM134.05,485.89c15.36,0,25.5-12.23,25.5-29.97s-10.14-29.82-25.5-29.82-25.65,12.23-25.65,29.82,10.29,29.97,25.65,29.97Z"/>
+          <path d="M187.33,419.97c0-.75.6-1.34,1.34-1.34h7.6c.75,0,1.34.6,1.34,1.34v8.95c7.75-7.01,17.9-11.78,28.18-11.78,13.87,0,26.54,8.5,26.54,26.69v48.02c0,.75-.6,1.34-1.34,1.34h-7.6c-.75,0-1.34-.6-1.34-1.34v-46.38c0-14.17-8.65-18.79-17.75-18.79-9.99,0-19.54,5.82-26.69,12.83v52.34c0,.75-.6,1.34-1.34,1.34h-7.6c-.75,0-1.34-.6-1.34-1.34v-71.88Z"/>
+          <path d="M305.26,417.14c21.47,0,35.79,15.66,35.79,38.77s-14.32,38.77-35.79,38.77-35.94-15.51-35.94-38.77,14.32-38.77,35.94-38.77ZM305.26,485.89c15.36,0,25.5-12.23,25.5-29.97s-10.14-29.82-25.5-29.82-25.65,12.23-25.65,29.82,10.29,29.97,25.65,29.97Z"/>
+          <path d="M415.78,434.29c-.6.6-1.34.45-1.94-.15-4.62-5.07-11.48-8.05-19.39-8.05-16.4,0-27.74,12.23-27.74,29.82s11.33,29.97,27.74,29.97c7.75,0,14.91-3.13,19.54-8.05.45-.6,1.34-.75,1.94-.3,1.04.89,5.07,3.13,6.11,4.03.6.45.75,1.19.3,1.79-6.56,7.16-16.25,11.33-27.89,11.33-22.82,0-38.03-15.51-38.03-38.77s15.21-38.77,38.03-38.77c11.78,0,21.33,4.18,27.89,11.48.45.6.3,1.34-.3,1.79l-6.26,3.88Z"/>
+          <path d="M438.13,388.66c0-.75.6-1.34,1.34-1.34h7.61c.75,0,1.34.6,1.34,1.34l.3,40.71c7.75-7.01,18.04-12.23,28.48-12.23,13.87,0,26.54,8.5,26.54,26.69v48.02c0,.75-.6,1.34-1.34,1.34h-7.61c-.89,0-1.34-.6-1.34-1.34v-46.38c0-14.17-8.8-18.79-17.9-18.79-9.99,0-19.68,5.67-26.84,12.68l.3,52.49c0,.75-.6,1.34-1.34,1.34h-7.61c-.75,0-1.34-.6-1.34-1.34l-.6-103.19Z"/>
+          <path d="M540.25,428.17c-4.17,0-7.01,2.68-7.01,6.86v56.82c0,.75-.6,1.34-1.34,1.34h-7.61c-.75,0-1.34-.6-1.34-1.34v-57.71c0-9.25,6.26-15.51,15.51-15.51h25.2c.75,0,1.34.6,1.34,1.34v6.86c0,.75-.6,1.34-1.34,1.34h-23.41Z"/>
+          <path d="M611.82,417.14c21.47,0,35.79,15.66,35.79,38.77s-14.32,38.77-35.79,38.77-35.94-15.51-35.94-38.77,14.32-38.77,35.94-38.77ZM611.82,485.89c15.36,0,25.5-12.23,25.5-29.97s-10.14-29.82-25.5-29.82-25.65,12.23-25.65,29.82,10.29,29.97,25.65,29.97Z"/>
+          <path d="M665.1,419.97c0-.75.6-1.34,1.34-1.34h7.61c.75,0,1.34.6,1.34,1.34v7.75c4.92-7.01,12.08-10.59,18.34-10.59,7.75,0,12.38,3.73,14.02,11.48,4.92-7.46,12.38-11.48,18.94-11.48,9.99,0,14.76,6.26,14.76,19.24v55.47c0,.75-.6,1.34-1.34,1.34h-7.61c-.89,0-1.34-.6-1.34-1.34v-53.83c0-9.39-2.09-11.33-7.01-11.33-7.16,0-12.08,6.41-15.66,13.12v52.04c0,.75-.6,1.34-1.34,1.34h-7.61c-.89,0-1.34-.6-1.34-1.34v-53.83c0-9.39-2.09-11.33-7.01-11.33-7.16,0-12.23,6.56-15.81,13.27v51.9c0,.75-.6,1.34-1.34,1.34h-7.61c-.75,0-1.34-.6-1.34-1.34v-71.88Z"/>
+          <path d="M794.72,485.89c10.74,0,18.79-5.97,22.67-15.66.15-.6.89-1.04,1.64-1.04h8.35c.9,0,1.19.6,1.04,1.34-4.03,15.21-17.15,24.16-33.7,24.16-21.62,0-35.94-15.66-35.94-38.77s14.32-38.77,35.94-38.77,36.24,16.4,35.79,39.37c-.15.75-.75,1.34-1.49,1.34h-59.95c.75,16.4,10.59,28.04,25.65,28.04ZM769.52,449.35h49.96c-2.24-13.42-11.18-23.26-24.75-23.26s-22.96,9.25-25.2,23.26Z"/>
+        </g>
+        <g>
+          <path d="M619.8,545.7c.17-.17.4-.17.57,0,2.06,2.01,5.62,3.09,8.94,3.15,4.53.12,8.77-1.78,8.77-5.79,0-8.02-19.43-3.21-19.43-14.56,0-4.7,5.27-7.34,10.66-7.34,4.13,0,7.51,1.32,9.97,3.67.17.17.17.4,0,.57l-1.03,1.09c-.17.17-.4.17-.57,0-2.12-2.12-5.27-3.09-8.37-3.21-4.36-.12-8.37,1.72-8.37,5.21,0,8.88,19.43,4.18,19.43,14.56,0,4.58-4.81,7.91-11.06,7.91-4.07,0-8.02-1.32-10.55-3.61-.17-.17-.17-.4,0-.57l1.03-1.09Z"/>
+          <path d="M648.63,521.75c.23,0,.46.17.57.4l10.6,25.56,10.95-25.56c.11-.23.34-.4.57-.4h1.72c.23,0,.34.17.23.4l-14.79,34.44c-1.72,3.96-3.73,3.55-8.71,3.55-.23,0-.4-.17-.4-.4v-1.26c0-.23.17-.4.4-.4,4.93,0,5.56.12,6.53-2.12l2.35-5.56-11.98-28.25c-.11-.23,0-.4.23-.4h1.72Z"/>
+          <path d="M680.84,545.7c.17-.17.4-.17.57,0,2.06,2.01,5.62,3.09,8.94,3.15,4.53.12,8.77-1.78,8.77-5.79,0-8.02-19.43-3.21-19.43-14.56,0-4.7,5.27-7.34,10.66-7.34,4.13,0,7.51,1.32,9.97,3.67.17.17.17.4,0,.57l-1.03,1.09c-.17.17-.4.17-.57,0-2.12-2.12-5.27-3.09-8.37-3.21-4.36-.12-8.37,1.72-8.37,5.21,0,8.88,19.43,4.18,19.43,14.56,0,4.58-4.81,7.91-11.06,7.91-4.07,0-8.02-1.32-10.55-3.61-.17-.17-.17-.4,0-.57l1.03-1.09Z"/>
+          <path d="M721.59,550.4c-2.92,0-4.87-1.95-4.87-4.87v-21.72h-8.37c-.23,0-.4-.17-.4-.4v-1.26c0-.23.17-.4.4-.4h8.37v-8.31c0-.23.17-.4.4-.46l1.49-.34c.23-.06.4.11.4.34v8.77h14.73c.23,0,.4.17.4.4v1.26c0,.23-.17.4-.4.4h-14.73v21.66c0,1.72,1.15,2.87,2.87,2.87h11.86c.23,0,.4.17.4.4v1.26c0,.23-.17.4-.4.4h-12.15Z"/>
+          <path d="M752.51,548.97c4.93,0,8.65-2.81,10.26-7.34.06-.23.29-.4.52-.4l1.6.06c.23,0,.34.17.29.4-1.43,5.85-6.42,9.28-12.67,9.28-8.08,0-13.47-5.96-13.47-14.9s5.39-14.9,13.47-14.9,13.3,5.85,13.47,14.5c0,.23-.17.4-.4.4h-24.24c0,7.68,4.47,12.9,11.18,12.9ZM741.45,533.9h22.12c-.8-6.42-5.04-10.66-11.06-10.66s-10.26,4.24-11.06,10.66Z"/>
+          <path d="M773.76,522.15c0-.23.17-.4.4-.4h1.49c.23,0,.4.17.4.4v3.44c1.89-2.98,4.64-4.41,7.05-4.41,2.69,0,4.7,1.2,5.22,4.53,1.83-3.04,4.7-4.53,7.11-4.53,3.15,0,5.33,1.61,5.33,6.42v22.41c0,.23-.17.4-.4.4h-1.49c-.23,0-.4-.17-.4-.4v-22.41c0-3.67-1.03-4.36-3.04-4.36-3.15,0-5.44,2.92-6.99,5.79v20.98c0,.23-.17.4-.4.4h-1.49c-.23,0-.4-.17-.4-.4v-22.41c0-3.67-1.03-4.36-3.04-4.36-3.21,0-5.5,2.98-7.05,5.9v20.86c0,.23-.17.4-.4.4h-1.49c-.23,0-.4-.17-.4-.4v-27.85Z"/>
+          <path d="M809.45,545.7c.17-.17.4-.17.57,0,2.06,2.01,5.62,3.09,8.94,3.15,4.53.12,8.77-1.78,8.77-5.79,0-8.02-19.43-3.21-19.43-14.56,0-4.7,5.27-7.34,10.66-7.34,4.13,0,7.51,1.32,9.97,3.67.17.17.17.4,0,.57l-1.03,1.09c-.17.17-.4.17-.57,0-2.12-2.12-5.27-3.09-8.37-3.21-4.36-.12-8.37,1.72-8.37,5.21,0,8.88,19.43,4.18,19.43,14.56,0,4.58-4.81,7.91-11.06,7.91-4.07,0-8.02-1.32-10.55-3.61-.17-.17-.17-.4,0-.57l1.03-1.09Z"/>
+        </g>
+        <path d="M527.99,241.13v-34.45h-31.11v-34.45h-31.11v-34.45h-31.11v-34.45h-31.11v-34.45h-31.11v-34.45h-31.11V0h-74.52v34.45h-.04v34.45h-.04v34.45h-.04v34.45h-.04v34.45h-.04v34.45h-.04v34.45h-.04v55.71h292.58v-55.71h-31.11ZM515.44,219.24v21.9h-18.56v-21.9h18.56ZM281.04,282.32v-26.66h59.55v26.66h-59.55ZM372.43,282.32v-26.66h26.44v26.66h-26.44ZM369.73,282.32h-28.41v-26.66h28.41v26.66ZM341.32,241.13v-21.9h28.41v21.9h-28.41ZM340.59,241.13h-61.48v-21.9h61.48v21.9ZM277.18,206.68v-23.87h63.41v23.87h-63.41ZM434.65,282.32v-26.66h22.5v26.66h-22.5ZM428.01,282.32h-24.47v-26.66h24.47v26.66ZM403.54,241.13v-21.9h24.47v21.9h-24.47ZM398.87,241.13h-26.44v-21.9h26.44v21.9ZM372.43,206.68v-23.87h26.44v23.87h-26.44ZM369.73,206.68h-28.41v-23.87h28.41v23.87ZM341.32,172.24v-25.84h28.41v25.84h-28.41ZM340.59,172.24h-65.35v-25.84h65.35v25.84ZM273.32,137.79v-27.81h67.28v27.81h-67.28ZM465.76,282.32v-26.66h20.53v26.66h-20.53ZM465.76,241.13v-21.9h20.53v21.9h-20.53ZM457.16,241.13h-22.5v-21.9h22.5v21.9ZM434.65,206.68v-23.87h22.5v23.87h-22.5ZM428.01,206.68h-24.47v-23.87h24.47v23.87ZM403.54,172.24v-25.84h24.47v25.84h-24.47ZM398.87,172.24h-26.44v-25.84h26.44v25.84ZM372.43,137.79v-27.81h26.44v27.81h-26.44ZM369.73,137.79h-28.41v-27.81h28.41v27.81ZM341.32,103.34v-29.78h28.41v29.78h-28.41ZM340.59,103.34h-69.21v-29.78h69.21v29.78ZM269.45,68.89v-31.75h71.14v31.75h-71.14ZM496.88,282.32v-26.66h18.56v26.66h-18.56ZM486.3,182.82v23.87h-20.53v-23.87h20.53ZM457.16,146.4v25.84h-22.5v-25.84h22.5ZM428.01,109.98v27.81h-24.47v-27.81h24.47ZM398.87,73.56v29.78h-26.44v-29.78h26.44ZM369.73,37.14v31.75h-28.41v-31.75h28.41ZM267.52.73h73.07v33.72h-73.07V.73ZM544.58,282.32h-16.59v-26.66h16.59v26.66Z"/>
+  </svg>
+</div>
+<div class="wrap">
+
+  <p class="crumb"><a href="../">&larr; Monochrome bridge</a></p>
+  <h1>IDML Export — Privacy Policy</h1>
+  <p class="updated">Last updated: 25 August 2026</p>
+
+  <p>IDML Export is a Figma plugin that converts a Figma frame into an Adobe InDesign
+    <code>.idml</code> file — live text, named CMYK and spot swatches, layers, vectors and linked
+    images. It works together with a free companion application, <strong>Monochrome bridge</strong>,
+    that you install on your own Mac.</p>
+
+  <div class="callout">
+    <p><strong>In one sentence: nothing about your design, your file, or your machine is ever sent
+      to us or to any third-party server. Everything happens on your own computer.</strong></p>
+  </div>
+
+  <h2>Data collection</h2>
+
+  <p><strong>We do not collect, store, or receive any data about you or your work.</strong> We
+    operate no server, no account system, no database, and no analytics of any kind.</p>
+
+  <ul>
+    <li><strong>No analytics, no telemetry, no crash reporting, no cookies, no identifiers.</strong></li>
+    <li><strong>We never see your file, your designs, your text, your images, or your folder
+      paths.</strong></li>
+    <li>The plugin does not know who you are beyond what Figma's own Payments system requires in
+      order to manage your subscription (see <em>Payments</em> below).</li>
+  </ul>
+
+  <h2>The companion app (Monochrome bridge)</h2>
+
+  <p>This is the part that deserves the most detail, because it is the part that is unusual.</p>
+
+  <p><strong>Why it exists.</strong> A Figma plugin runs in a sandbox that cannot write files to
+    your disk or assemble an archive of the size a real IDML package requires. So the conversion is
+    split: the plugin reads your design inside Figma and produces an intermediate description of it;
+    the companion turns that into the <code>.idml</code> file and writes it to the folder you
+    chose.</p>
+
+  <p><strong>How the two talk.</strong> Over <strong>loopback only</strong> —
+    <code>http://127.0.0.1:7331</code>, the address that means "this same computer". The companion
+    binds exclusively to the loopback interface and additionally rejects any connection that does
+    not originate from it. It is not reachable from your network, your office, or the internet, and
+    it does not open any port to the outside.</p>
+
+  <p><strong>What is sent to it.</strong> Only what is needed to build the file, and only from the
+    plugin to the companion on your own machine:</p>
+
+  <ul>
+    <li>The geometry, styling and structure of the frames you chose to export — positions, sizes,
+      transforms, colours, strokes, effects, layer names.</li>
+    <li><strong>The text content of those frames</strong>, including font names, because the export
+      produces live, editable type rather than a picture of it.</li>
+    <li><strong>Image bytes</strong> for images that are exported from Figma rather than linked from
+      disk.</li>
+    <li><strong>The folder paths you choose</strong> for output and for linked artwork, so the
+      companion can write the <code>.idml</code> there and read the hi-res originals you asked it to
+      link.</li>
+  </ul>
+
+  <p><strong>What it does with that.</strong> It writes the <code>.idml</code> file (and any
+    exported images) into the output folder you selected, and returns the result to the plugin. That
+    is all.</p>
+
+  <p><strong>What it does not do.</strong> The companion makes <strong>no outbound network
+    connections of its own</strong>. It does not phone home, check for updates, report usage, or
+    transmit anything anywhere. Your design data reaches your disk and stops there.</p>
+
+  <p><strong>Access control.</strong> Requests to the companion are authenticated with a token
+    generated on your machine at install time, which you paste into the plugin once during setup. It
+    is stored locally (see <em>Local storage</em> below) and never leaves your computer.</p>
+
+  <p><strong>Lifecycle.</strong> The companion runs only when you open it. It stops listening after
+    60 minutes of inactivity, releasing the port; you start it again from its menu-bar icon. It
+    never installs a background service and never starts itself — optionally, and only if you switch
+    it on yourself, it can open at login the same way any other application does. It is signed and
+    notarized by Apple.</p>
+
+  <p><strong>It is yours to remove.</strong> The companion is an ordinary Mac application. Deleting
+    it from <code>/Applications</code> removes it completely; the plugin then simply reports that no
+    companion is available.</p>
+
+  <h2>Network access</h2>
+
+  <p>The plugin's Figma manifest declares exactly two allowed domains, and it contacts no others:</p>
+
+  <ol>
+    <li><strong><code>http://localhost:7331</code></strong> — the companion app on your own machine,
+      described above. This traffic never leaves your computer.</li>
+    <li><strong><code>https://monochrome-downloads.github.io</code></strong> — a read-only fetch of a
+      small static <code>versions.json</code> file, so the plugin can tell you when a newer companion
+      build is available. This is an ordinary web request for a public file. It sends no information
+      about you, your file, or your work — but, like any web request, GitHub (which hosts that page)
+      will see that a request was made, in the same way it would if you opened the download page in a
+      browser. We receive nothing from it.</li>
+  </ol>
+
+  <p>The companion app itself, as stated above, makes no network requests at all — which is why the
+    version check is done on the plugin side instead.</p>
+
+  <h2>Local storage</h2>
+
+  <p>Your settings are stored <strong>locally only</strong>, using Figma's own storage APIs. These
+    are provided and controlled by Figma, on your machine — they are not a service we operate, and
+    we have no access to them.</p>
+
+  <ul>
+    <li><strong><code>clientStorage</code></strong> (per-user, on your machine): your chosen output
+      and links folder paths, your saved colour-mapping profiles and client names, your export
+      preferences, and the companion access token.</li>
+    <li><strong><code>pluginData</code></strong> (attached to the Figma file itself): per-object
+      print settings such as overprint flags, so they travel with the design rather than with your
+      machine.</li>
+  </ul>
+
+  <h2>Payments</h2>
+
+  <p>Subscription state and checkout are handled entirely by <strong>Figma's own Payments
+    platform</strong> (<code>figma.payments</code>), not by us. Figma — not this plugin — processes
+    your payment method and billing details, under Figma's own privacy policy. <strong>We never see
+    your payment information</strong>, and we receive no personal data from Figma's payments system;
+    the plugin can see only whether the current user is paid or unpaid.</p>
+
+  <h2>Third parties</h2>
+
+  <p>There are none. IDML Export uses no third-party services, SDKs, analytics providers, or hosted
+    APIs. It integrates only with Figma's own plugin APIs, and with the companion app on your own
+    machine.</p>
+
+  <h2>Children</h2>
+
+  <p>This plugin is a professional design tool and is not directed at children.</p>
+
+  <h2>Changes to this policy</h2>
+
+  <p>If this plugin's or the companion's data practices ever change — for example if a genuine
+    network feature were ever added — this page will be updated first, with the date at the top
+    revised, and the change will be reflected in the plugin's next Community listing update.</p>
+
+  <h2>Contact</h2>
+
+  <p>Questions about this policy, the plugin, or the companion app:<br>
+    <a href="mailto:monochrome.systems@gmail.com">monochrome.systems@gmail.com</a></p>
+
+  <footer>
+    <a href="../">Download</a>·<a href="../privacy/">Privacy</a>·<a href="../support/">Support</a>
+    <div style="margin-top:10px">Monochrome bridge · part of the Monochrome Studio Tools plugin family</div>
+  </footer>
+
+</div>
+</body>
+</html>

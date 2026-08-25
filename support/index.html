@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IDML Export — Support</title>
+<meta name="description" content="Troubleshooting for IDML Export and the Monochrome bridge companion app: install, pairing, the idle timeout, port conflicts, and export problems.">
+<style>
+  /* Design tokens lifted verbatim from index.html so the three pages read as one site. Only the
+     content styles below diverge — these are long-form prose pages, not a download card. */
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #5a5a5a;
+    --card-bg: #f6f6f7;
+    --border: #e2e2e4;
+    --accent: #2f6feb;
+    --accent-fg: #ffffff;
+    --code-bg: #eef0f2;
+    --good: #1f8a4c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115;
+      --fg: #eaecef;
+      --muted: #9aa1ab;
+      --card-bg: #171a20;
+      --border: #2a2e37;
+      --accent: #5b9dff;
+      --accent-fg: #0b0e14;
+      --code-bg: #1c2028;
+      --good: #34c77a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.62 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 24px 96px; }
+
+  /* Static twin of index.html's .hero-band — same fixed-black brand band and the same measured
+     139px height, minus the animated dot canvas. A privacy policy does not need a running
+     requestAnimationFrame loop behind its masthead. */
+  .hero-band {
+    background: #000;
+    width: 100%;
+    height: 139px;
+    padding: 13.9px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-band svg { height: 100%; width: auto; }
+  .hero-band path { fill: #fff; }
+
+  .crumb { margin: 24px 0 0; font-size: 13.5px; color: var(--muted); }
+  h1 { font-size: 30px; margin: 18px 0 6px; letter-spacing: -0.01em; }
+  .updated { color: var(--muted); font-size: 13.5px; margin: 0 0 32px; }
+  h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 44px 0 14px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  h3 { font-size: 17px; margin: 30px 0 8px; letter-spacing: -0.005em; }
+  p { margin: 0 0 14px; }
+  ul, ol { padding-left: 22px; margin: 0 0 14px; }
+  li { margin-bottom: 8px; }
+  a { color: var(--accent); }
+  strong { font-weight: 600; }
+  code {
+    background: var(--code-bg);
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: 0.92em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-size: 13.5px;
+    line-height: 1.5;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  /* The one-sentence summary at the top of the policy, and the free-tier note on the support
+     page — the two passages a reader most needs to not skim past. */
+  .callout {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 0 0 24px;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+  }
+  footer a { margin: 0 8px; }
+</style>
+</head>
+<body>
+<div class="hero-band" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 835.51 564.39">
+        <g>
+          <path d="M10.59,388.66c0-.75.6-1.34,1.34-1.34h7.9c.89,0,1.49.45,1.94,1.19l24.75,52.79,24.46-52.79c.45-.75,1.19-1.19,1.94-1.19h7.9c.9,0,1.34.6,1.34,1.34v103.19c0,.75-.45,1.34-1.34,1.34h-7.9c-.75,0-1.34-.6-1.34-1.34v-81.87l-21.47,45.48c-.45.75-1.19,1.04-1.94,1.04h-3.28c-.75,0-1.64-.3-1.94-1.04l-21.77-45.48v81.87c0,.75-.45,1.34-1.34,1.34h-7.9c-.75,0-1.34-.6-1.34-1.34v-103.19Z"/>
+          <path d="M134.05,417.14c21.47,0,35.79,15.66,35.79,38.77s-14.32,38.77-35.79,38.77-35.94-15.51-35.94-38.77,14.32-38.77,35.94-38.77ZM134.05,485.89c15.36,0,25.5-12.23,25.5-29.97s-10.14-29.82-25.5-29.82-25.65,12.23-25.65,29.82,10.29,29.97,25.65,29.97Z"/>
+          <path d="M187.33,419.97c0-.75.6-1.34,1.34-1.34h7.6c.75,0,1.34.6,1.34,1.34v8.95c7.75-7.01,17.9-11.78,28.18-11.78,13.87,0,26.54,8.5,26.54,26.69v48.02c0,.75-.6,1.34-1.34,1.34h-7.6c-.75,0-1.34-.6-1.34-1.34v-46.38c0-14.17-8.65-18.79-17.75-18.79-9.99,0-19.54,5.82-26.69,12.83v52.34c0,.75-.6,1.34-1.34,1.34h-7.6c-.75,0-1.34-.6-1.34-1.34v-71.88Z"/>
+          <path d="M305.26,417.14c21.47,0,35.79,15.66,35.79,38.77s-14.32,38.77-35.79,38.77-35.94-15.51-35.94-38.77,14.32-38.77,35.94-38.77ZM305.26,485.89c15.36,0,25.5-12.23,25.5-29.97s-10.14-29.82-25.5-29.82-25.65,12.23-25.65,29.82,10.29,29.97,25.65,29.97Z"/>
+          <path d="M415.78,434.29c-.6.6-1.34.45-1.94-.15-4.62-5.07-11.48-8.05-19.39-8.05-16.4,0-27.74,12.23-27.74,29.82s11.33,29.97,27.74,29.97c7.75,0,14.91-3.13,19.54-8.05.45-.6,1.34-.75,1.94-.3,1.04.89,5.07,3.13,6.11,4.03.6.45.75,1.19.3,1.79-6.56,7.16-16.25,11.33-27.89,11.33-22.82,0-38.03-15.51-38.03-38.77s15.21-38.77,38.03-38.77c11.78,0,21.33,4.18,27.89,11.48.45.6.3,1.34-.3,1.79l-6.26,3.88Z"/>
+          <path d="M438.13,388.66c0-.75.6-1.34,1.34-1.34h7.61c.75,0,1.34.6,1.34,1.34l.3,40.71c7.75-7.01,18.04-12.23,28.48-12.23,13.87,0,26.54,8.5,26.54,26.69v48.02c0,.75-.6,1.34-1.34,1.34h-7.61c-.89,0-1.34-.6-1.34-1.34v-46.38c0-14.17-8.8-18.79-17.9-18.79-9.99,0-19.68,5.67-26.84,12.68l.3,52.49c0,.75-.6,1.34-1.34,1.34h-7.61c-.75,0-1.34-.6-1.34-1.34l-.6-103.19Z"/>
+          <path d="M540.25,428.17c-4.17,0-7.01,2.68-7.01,6.86v56.82c0,.75-.6,1.34-1.34,1.34h-7.61c-.75,0-1.34-.6-1.34-1.34v-57.71c0-9.25,6.26-15.51,15.51-15.51h25.2c.75,0,1.34.6,1.34,1.34v6.86c0,.75-.6,1.34-1.34,1.34h-23.41Z"/>
+          <path d="M611.82,417.14c21.47,0,35.79,15.66,35.79,38.77s-14.32,38.77-35.79,38.77-35.94-15.51-35.94-38.77,14.32-38.77,35.94-38.77ZM611.82,485.89c15.36,0,25.5-12.23,25.5-29.97s-10.14-29.82-25.5-29.82-25.65,12.23-25.65,29.82,10.29,29.97,25.65,29.97Z"/>
+          <path d="M665.1,419.97c0-.75.6-1.34,1.34-1.34h7.61c.75,0,1.34.6,1.34,1.34v7.75c4.92-7.01,12.08-10.59,18.34-10.59,7.75,0,12.38,3.73,14.02,11.48,4.92-7.46,12.38-11.48,18.94-11.48,9.99,0,14.76,6.26,14.76,19.24v55.47c0,.75-.6,1.34-1.34,1.34h-7.61c-.89,0-1.34-.6-1.34-1.34v-53.83c0-9.39-2.09-11.33-7.01-11.33-7.16,0-12.08,6.41-15.66,13.12v52.04c0,.75-.6,1.34-1.34,1.34h-7.61c-.89,0-1.34-.6-1.34-1.34v-53.83c0-9.39-2.09-11.33-7.01-11.33-7.16,0-12.23,6.56-15.81,13.27v51.9c0,.75-.6,1.34-1.34,1.34h-7.61c-.75,0-1.34-.6-1.34-1.34v-71.88Z"/>
+          <path d="M794.72,485.89c10.74,0,18.79-5.97,22.67-15.66.15-.6.89-1.04,1.64-1.04h8.35c.9,0,1.19.6,1.04,1.34-4.03,15.21-17.15,24.16-33.7,24.16-21.62,0-35.94-15.66-35.94-38.77s14.32-38.77,35.94-38.77,36.24,16.4,35.79,39.37c-.15.75-.75,1.34-1.49,1.34h-59.95c.75,16.4,10.59,28.04,25.65,28.04ZM769.52,449.35h49.96c-2.24-13.42-11.18-23.26-24.75-23.26s-22.96,9.25-25.2,23.26Z"/>
+        </g>
+        <g>
+          <path d="M619.8,545.7c.17-.17.4-.17.57,0,2.06,2.01,5.62,3.09,8.94,3.15,4.53.12,8.77-1.78,8.77-5.79,0-8.02-19.43-3.21-19.43-14.56,0-4.7,5.27-7.34,10.66-7.34,4.13,0,7.51,1.32,9.97,3.67.17.17.17.4,0,.57l-1.03,1.09c-.17.17-.4.17-.57,0-2.12-2.12-5.27-3.09-8.37-3.21-4.36-.12-8.37,1.72-8.37,5.21,0,8.88,19.43,4.18,19.43,14.56,0,4.58-4.81,7.91-11.06,7.91-4.07,0-8.02-1.32-10.55-3.61-.17-.17-.17-.4,0-.57l1.03-1.09Z"/>
+          <path d="M648.63,521.75c.23,0,.46.17.57.4l10.6,25.56,10.95-25.56c.11-.23.34-.4.57-.4h1.72c.23,0,.34.17.23.4l-14.79,34.44c-1.72,3.96-3.73,3.55-8.71,3.55-.23,0-.4-.17-.4-.4v-1.26c0-.23.17-.4.4-.4,4.93,0,5.56.12,6.53-2.12l2.35-5.56-11.98-28.25c-.11-.23,0-.4.23-.4h1.72Z"/>
+          <path d="M680.84,545.7c.17-.17.4-.17.57,0,2.06,2.01,5.62,3.09,8.94,3.15,4.53.12,8.77-1.78,8.77-5.79,0-8.02-19.43-3.21-19.43-14.56,0-4.7,5.27-7.34,10.66-7.34,4.13,0,7.51,1.32,9.97,3.67.17.17.17.4,0,.57l-1.03,1.09c-.17.17-.4.17-.57,0-2.12-2.12-5.27-3.09-8.37-3.21-4.36-.12-8.37,1.72-8.37,5.21,0,8.88,19.43,4.18,19.43,14.56,0,4.58-4.81,7.91-11.06,7.91-4.07,0-8.02-1.32-10.55-3.61-.17-.17-.17-.4,0-.57l1.03-1.09Z"/>
+          <path d="M721.59,550.4c-2.92,0-4.87-1.95-4.87-4.87v-21.72h-8.37c-.23,0-.4-.17-.4-.4v-1.26c0-.23.17-.4.4-.4h8.37v-8.31c0-.23.17-.4.4-.46l1.49-.34c.23-.06.4.11.4.34v8.77h14.73c.23,0,.4.17.4.4v1.26c0,.23-.17.4-.4.4h-14.73v21.66c0,1.72,1.15,2.87,2.87,2.87h11.86c.23,0,.4.17.4.4v1.26c0,.23-.17.4-.4.4h-12.15Z"/>
+          <path d="M752.51,548.97c4.93,0,8.65-2.81,10.26-7.34.06-.23.29-.4.52-.4l1.6.06c.23,0,.34.17.29.4-1.43,5.85-6.42,9.28-12.67,9.28-8.08,0-13.47-5.96-13.47-14.9s5.39-14.9,13.47-14.9,13.3,5.85,13.47,14.5c0,.23-.17.4-.4.4h-24.24c0,7.68,4.47,12.9,11.18,12.9ZM741.45,533.9h22.12c-.8-6.42-5.04-10.66-11.06-10.66s-10.26,4.24-11.06,10.66Z"/>
+          <path d="M773.76,522.15c0-.23.17-.4.4-.4h1.49c.23,0,.4.17.4.4v3.44c1.89-2.98,4.64-4.41,7.05-4.41,2.69,0,4.7,1.2,5.22,4.53,1.83-3.04,4.7-4.53,7.11-4.53,3.15,0,5.33,1.61,5.33,6.42v22.41c0,.23-.17.4-.4.4h-1.49c-.23,0-.4-.17-.4-.4v-22.41c0-3.67-1.03-4.36-3.04-4.36-3.15,0-5.44,2.92-6.99,5.79v20.98c0,.23-.17.4-.4.4h-1.49c-.23,0-.4-.17-.4-.4v-22.41c0-3.67-1.03-4.36-3.04-4.36-3.21,0-5.5,2.98-7.05,5.9v20.86c0,.23-.17.4-.4.4h-1.49c-.23,0-.4-.17-.4-.4v-27.85Z"/>
+          <path d="M809.45,545.7c.17-.17.4-.17.57,0,2.06,2.01,5.62,3.09,8.94,3.15,4.53.12,8.77-1.78,8.77-5.79,0-8.02-19.43-3.21-19.43-14.56,0-4.7,5.27-7.34,10.66-7.34,4.13,0,7.51,1.32,9.97,3.67.17.17.17.4,0,.57l-1.03,1.09c-.17.17-.4.17-.57,0-2.12-2.12-5.27-3.09-8.37-3.21-4.36-.12-8.37,1.72-8.37,5.21,0,8.88,19.43,4.18,19.43,14.56,0,4.58-4.81,7.91-11.06,7.91-4.07,0-8.02-1.32-10.55-3.61-.17-.17-.17-.4,0-.57l1.03-1.09Z"/>
+        </g>
+        <path d="M527.99,241.13v-34.45h-31.11v-34.45h-31.11v-34.45h-31.11v-34.45h-31.11v-34.45h-31.11v-34.45h-31.11V0h-74.52v34.45h-.04v34.45h-.04v34.45h-.04v34.45h-.04v34.45h-.04v34.45h-.04v34.45h-.04v55.71h292.58v-55.71h-31.11ZM515.44,219.24v21.9h-18.56v-21.9h18.56ZM281.04,282.32v-26.66h59.55v26.66h-59.55ZM372.43,282.32v-26.66h26.44v26.66h-26.44ZM369.73,282.32h-28.41v-26.66h28.41v26.66ZM341.32,241.13v-21.9h28.41v21.9h-28.41ZM340.59,241.13h-61.48v-21.9h61.48v21.9ZM277.18,206.68v-23.87h63.41v23.87h-63.41ZM434.65,282.32v-26.66h22.5v26.66h-22.5ZM428.01,282.32h-24.47v-26.66h24.47v26.66ZM403.54,241.13v-21.9h24.47v21.9h-24.47ZM398.87,241.13h-26.44v-21.9h26.44v21.9ZM372.43,206.68v-23.87h26.44v23.87h-26.44ZM369.73,206.68h-28.41v-23.87h28.41v23.87ZM341.32,172.24v-25.84h28.41v25.84h-28.41ZM340.59,172.24h-65.35v-25.84h65.35v25.84ZM273.32,137.79v-27.81h67.28v27.81h-67.28ZM465.76,282.32v-26.66h20.53v26.66h-20.53ZM465.76,241.13v-21.9h20.53v21.9h-20.53ZM457.16,241.13h-22.5v-21.9h22.5v21.9ZM434.65,206.68v-23.87h22.5v23.87h-22.5ZM428.01,206.68h-24.47v-23.87h24.47v23.87ZM403.54,172.24v-25.84h24.47v25.84h-24.47ZM398.87,172.24h-26.44v-25.84h26.44v25.84ZM372.43,137.79v-27.81h26.44v27.81h-26.44ZM369.73,137.79h-28.41v-27.81h28.41v27.81ZM341.32,103.34v-29.78h28.41v29.78h-28.41ZM340.59,103.34h-69.21v-29.78h69.21v29.78ZM269.45,68.89v-31.75h71.14v31.75h-71.14ZM496.88,282.32v-26.66h18.56v26.66h-18.56ZM486.3,182.82v23.87h-20.53v-23.87h20.53ZM457.16,146.4v25.84h-22.5v-25.84h22.5ZM428.01,109.98v27.81h-24.47v-27.81h24.47ZM398.87,73.56v29.78h-26.44v-29.78h26.44ZM369.73,37.14v31.75h-28.41v-31.75h28.41ZM267.52.73h73.07v33.72h-73.07V.73ZM544.58,282.32h-16.59v-26.66h16.59v26.66Z"/>
+  </svg>
+</div>
+<div class="wrap">
+
+  <p class="crumb"><a href="../">&larr; Monochrome bridge</a></p>
+  <h1>IDML Export — Support &amp; Troubleshooting</h1>
+  <p class="updated">Last updated: 25 August 2026</p>
+
+  <p>This page covers the companion app — <strong>Monochrome bridge</strong> — which is where nearly
+    every support question about IDML Export ends up. If your problem is with the exported file
+    itself rather than with getting an export to run at all, skip to
+    <a href="#file-is-wrong">The export ran, but the file is wrong</a>.</p>
+
+  <p><strong>Download the companion:</strong>
+    <a href="../">monochrome-downloads.github.io/monochrome-services</a></p>
+
+  <h2>"The companion isn't running"</h2>
+
+  <p>This is the most common message, and it almost always means one of four things.</p>
+
+  <h3>1. It isn't installed yet</h3>
+
+  <p>IDML Export needs a small free companion app on your Mac. Figma plugins are not allowed to
+    write files to your disk, so the plugin builds a description of your layout and the companion
+    turns it into the <code>.idml</code> file.</p>
+
+  <ol>
+    <li>Download <strong>Monochrome-bridge.dmg</strong> from the link above.</li>
+    <li>Open the DMG and drag the app to your <strong>Applications</strong> folder.</li>
+    <li>Launch it once. A small icon appears in your menu bar — no window opens, and that is
+      correct.</li>
+    <li>Click that icon → <strong>Copy pairing token to clipboard</strong>, then paste the token
+      into the "Monochrome Bridge is offline" panel in the plugin and press <strong>Save</strong>.</li>
+  </ol>
+
+  <p>That last step is one-time. The token stays on your machine and is what stops any other program
+    on your computer from talking to the companion.</p>
+
+  <h3>2. It's installed, but it has stopped listening — this is normal</h3>
+
+  <p>The bridge <strong>stops listening after 60 minutes with no activity</strong>, so it isn't
+    holding a port open all day. The app itself keeps running: <strong>the menu-bar icon stays where
+    it is</strong>, and its menu now reads <strong>Status: Stopped</strong>.</p>
+
+  <p><strong>Click the menu-bar icon → Start bridge</strong>, then hit <strong>Retry</strong> in the
+    plugin. That is the whole fix. The plugin cannot start the bridge for you — it is manual on
+    purpose, so nothing of ours ever runs on your Mac without you opening it.</p>
+
+  <p>If you'd rather not do this after every long gap, the same menu has a <strong>Launch at
+    login</strong> checkbox. It is off by default; switching it on makes the app open at login like
+    any other application, so the icon is always there and one click restarts it. macOS will show
+    you a "this app was added to your login items" notification the first time — that is macOS being
+    transparent, not a warning.</p>
+
+  <p>To check the bridge by hand, open Terminal and run:</p>
+
+  <pre><code>curl http://127.0.0.1:7331/ping</code></pre>
+
+  <p>A JSON response means it's listening and everything is fine. No response means it is stopped —
+    start it from the menu-bar icon.</p>
+
+  <h3>3. macOS blocked it on first open</h3>
+
+  <p>The app is <strong>signed and notarized by Apple</strong>, so this should not happen. If you do
+    see <em>"cannot be opened because the developer cannot be verified"</em>, the most likely cause
+    is a partial or interrupted download.</p>
+
+  <ol>
+    <li>Delete the copy in <code>/Applications</code> and delete the DMG.</li>
+    <li>Re-download from the link above and try again.</li>
+    <li>If it still happens: right-click the app → <strong>Open</strong> → <strong>Open</strong>.
+      This works, but please <a href="#contact">tell us</a> — it means something is wrong with our
+      signing, and we want to fix it rather than have people work around it.</li>
+  </ol>
+
+  <h3>4. Something else is using port 7331</h3>
+
+  <p>The companion listens on <code>127.0.0.1:7331</code>. If another program has claimed that port,
+    it can't start. To check:</p>
+
+  <pre><code>lsof -nP -iTCP:7331 -sTCP:LISTEN</code></pre>
+
+  <p>If that lists something that isn't the Monochrome bridge, quit it and try again. If it lists an
+    old copy of the bridge that isn't responding, quit it from the menu-bar icon (or, in Terminal,
+    <code>pkill -f services.py</code>), then open Monochrome bridge again.</p>
+
+  <h2>"Export failed" or the export hangs</h2>
+
+  <ul>
+    <li><strong>Check the output folder is set</strong> — Setup tab. Without one, the companion has
+      nowhere to write.</li>
+    <li><strong>Check the folder still exists and is writable.</strong> External drives that have
+      gone to sleep, and cloud-synced folders that are still catching up, are the usual culprits.</li>
+    <li><strong>Very large frames take time.</strong> Image-heavy exports transfer real image data to
+      the companion. Give it a moment before assuming it's stuck.</li>
+    <li><strong>Try one frame.</strong> If a single frame exports and a batch doesn't, tell us which
+      frame breaks it — that's the most useful bug report we can get.</li>
+  </ul>
+
+  <h2 id="file-is-wrong">The export ran, but the file is wrong</h2>
+
+  <p><strong>Read the compatibility report first.</strong> Before every export, IDML Export scans
+    your frames and lists exactly what will convert cleanly, what will be approximated, and what
+    cannot be converted at all. If something didn't survive the trip, the report almost certainly
+    warned you about it. Nothing is ever silently substituted.</p>
+
+  <p>Common ones:</p>
+
+  <ul>
+    <li><strong>Fonts are missing in InDesign.</strong> The <code>.idml</code> references fonts by
+      name; InDesign needs those fonts installed on the machine that opens it. The report flags
+      unmapped fonts before you export.</li>
+    <li><strong>Images are linked, not embedded.</strong> That's deliberate — it's what a production
+      file should do. Keep the <code>Links</code> folder next to the <code>.idml</code>. If you point
+      the plugin at your job's existing links folder, it will link your hi-res originals instead of
+      re-exporting from Figma.</li>
+    <li><strong>A gradient or blend mode looks different.</strong> InDesign has no equivalent for
+      some of Figma's (angular and diamond gradients, for instance). These are approximated, and the
+      report says so.</li>
+    <li><strong>Components aren't permanent links until you save.</strong> Open the <code>.idml</code>
+      and do <strong>Save As → .indd</strong> to make the document permanent.</li>
+  </ul>
+
+  <h2>"My export opens, but it's unusable"</h2>
+
+  <div class="callout">
+    <p>If your file opens in InDesign, everything is in exactly the right place, and yet the file is
+      plainly not production-ready — swatches stripped, type not workable — you are on the
+      <strong>free tier</strong>. That is what the free export is: a proof that the conversion is
+      correct, not a file you can ship.</p>
+    <p>The <strong>$6.99/month</strong> subscription unlocks the real, clean export. Everything
+      else — scanning, the compatibility report, colour mapping, all of Setup — is free and stays
+      free.</p>
+  </div>
+
+  <h2>Windows</h2>
+
+  <p>Not supported. Version 1 is macOS only, because the companion has to be signed for the platform
+    it runs on. If there's demand, Windows is the next thing we'd build.</p>
+
+  <h2>Privacy</h2>
+
+  <p>Nothing about your design leaves your machine. The companion talks only to your own computer
+    (<code>127.0.0.1</code>) and makes no outbound network connections at all. Full details:
+    <a href="../privacy/">privacy policy</a>.</p>
+
+  <h2 id="contact">Contact</h2>
+
+  <p><a href="mailto:monochrome.systems@gmail.com">monochrome.systems@gmail.com</a></p>
+
+  <p>When reporting a problem, the things that help most:</p>
+
+  <ul>
+    <li>Your macOS version and InDesign version.</li>
+    <li>What the plugin's companion indicator says.</li>
+    <li>The output of <code>curl http://127.0.0.1:7331/ping</code>.</li>
+    <li>Whether one frame fails or all of them.</li>
+  </ul>
+
+  <footer>
+    <a href="../">Download</a>·<a href="../privacy/">Privacy</a>·<a href="../support/">Support</a>
+    <div style="margin-top:10px">Monochrome bridge · part of the Monochrome Studio Tools plugin family</div>
+  </footer>
+
+</div>
+</body>
+</html>
