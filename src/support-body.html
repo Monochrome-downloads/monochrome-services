@@ -1,0 +1,154 @@
+  <p class="crumb"><a href="../">&larr; Monochrome bridge</a></p>
+  <h1>IDML Export — Support &amp; Troubleshooting</h1>
+  <p class="updated">Last updated: 25 August 2026</p>
+
+  <p>This page covers the companion app — <strong>Monochrome bridge</strong> — which is where nearly
+    every support question about IDML Export ends up. If your problem is with the exported file
+    itself rather than with getting an export to run at all, skip to
+    <a href="#file-is-wrong">The export ran, but the file is wrong</a>.</p>
+
+  <p><strong>Download the companion:</strong>
+    <a href="../">monochrome-downloads.github.io/monochrome-services</a></p>
+
+  <h2>"The companion isn't running"</h2>
+
+  <p>This is the most common message, and it almost always means one of four things.</p>
+
+  <h3>1. It isn't installed yet</h3>
+
+  <p>IDML Export needs a small free companion app on your Mac. Figma plugins are not allowed to
+    write files to your disk, so the plugin builds a description of your layout and the companion
+    turns it into the <code>.idml</code> file.</p>
+
+  <ol>
+    <li>Download <strong>Monochrome-bridge.dmg</strong> from the link above.</li>
+    <li>Open the DMG and drag the app to your <strong>Applications</strong> folder.</li>
+    <li>Launch it once. A small icon appears in your menu bar — no window opens, and that is
+      correct.</li>
+    <li>Click that icon → <strong>Copy pairing token to clipboard</strong>, then paste the token
+      into the "Monochrome Bridge is offline" panel in the plugin and press <strong>Save</strong>.</li>
+  </ol>
+
+  <p>That last step is one-time. The token stays on your machine and is what stops any other program
+    on your computer from talking to the companion.</p>
+
+  <h3>2. It's installed, but it has stopped listening — this is normal</h3>
+
+  <p>The bridge <strong>stops listening after 60 minutes with no activity</strong>, so it isn't
+    holding a port open all day. The app itself keeps running: <strong>the menu-bar icon stays where
+    it is</strong>, and its menu now reads <strong>Status: Stopped</strong>.</p>
+
+  <p><strong>Click the menu-bar icon → Start bridge</strong>, then hit <strong>Retry</strong> in the
+    plugin. That is the whole fix. The plugin cannot start the bridge for you — it is manual on
+    purpose, so nothing of ours ever runs on your Mac without you opening it.</p>
+
+  <p>If you'd rather not do this after every long gap, the same menu has a <strong>Launch at
+    login</strong> checkbox. It is off by default; switching it on makes the app open at login like
+    any other application, so the icon is always there and one click restarts it. macOS will show
+    you a "this app was added to your login items" notification the first time — that is macOS being
+    transparent, not a warning.</p>
+
+  <p>To check the bridge by hand, open Terminal and run:</p>
+
+  <pre><code>curl http://127.0.0.1:7331/ping</code></pre>
+
+  <p>A JSON response means it's listening and everything is fine. No response means it is stopped —
+    start it from the menu-bar icon.</p>
+
+  <h3>3. macOS blocked it on first open</h3>
+
+  <p>The app is <strong>signed and notarized by Apple</strong>, so this should not happen. If you do
+    see <em>"cannot be opened because the developer cannot be verified"</em>, the most likely cause
+    is a partial or interrupted download.</p>
+
+  <ol>
+    <li>Delete the copy in <code>/Applications</code> and delete the DMG.</li>
+    <li>Re-download from the link above and try again.</li>
+    <li>If it still happens: right-click the app → <strong>Open</strong> → <strong>Open</strong>.
+      This works, but please <a href="#contact">tell us</a> — it means something is wrong with our
+      signing, and we want to fix it rather than have people work around it.</li>
+  </ol>
+
+  <h3>4. Something else is using port 7331</h3>
+
+  <p>The companion listens on <code>127.0.0.1:7331</code>. If another program has claimed that port,
+    it can't start. To check:</p>
+
+  <pre><code>lsof -nP -iTCP:7331 -sTCP:LISTEN</code></pre>
+
+  <p>If that lists something that isn't the Monochrome bridge, quit it and try again. If it lists an
+    old copy of the bridge that isn't responding, quit it from the menu-bar icon (or, in Terminal,
+    <code>pkill -f services.py</code>), then open Monochrome bridge again.</p>
+
+  <h2>"Export failed" or the export hangs</h2>
+
+  <ul>
+    <li><strong>Check the output folder is set</strong> — Setup tab. Without one, the companion has
+      nowhere to write.</li>
+    <li><strong>Check the folder still exists and is writable.</strong> External drives that have
+      gone to sleep, and cloud-synced folders that are still catching up, are the usual culprits.</li>
+    <li><strong>Very large frames take time.</strong> Image-heavy exports transfer real image data to
+      the companion. Give it a moment before assuming it's stuck.</li>
+    <li><strong>Try one frame.</strong> If a single frame exports and a batch doesn't, tell us which
+      frame breaks it — that's the most useful bug report we can get.</li>
+  </ul>
+
+  <h2 id="file-is-wrong">The export ran, but the file is wrong</h2>
+
+  <p><strong>Read the compatibility report first.</strong> Before every export, IDML Export scans
+    your frames and lists exactly what will convert cleanly, what will be approximated, and what
+    cannot be converted at all. If something didn't survive the trip, the report almost certainly
+    warned you about it. Nothing is ever silently substituted.</p>
+
+  <p>Common ones:</p>
+
+  <ul>
+    <li><strong>Fonts are missing in InDesign.</strong> The <code>.idml</code> references fonts by
+      name; InDesign needs those fonts installed on the machine that opens it. The report flags
+      unmapped fonts before you export.</li>
+    <li><strong>Images are linked, not embedded.</strong> That's deliberate — it's what a production
+      file should do. Keep the <code>Links</code> folder next to the <code>.idml</code>. If you point
+      the plugin at your job's existing links folder, it will link your hi-res originals instead of
+      re-exporting from Figma.</li>
+    <li><strong>A gradient or blend mode looks different.</strong> InDesign has no equivalent for
+      some of Figma's (angular and diamond gradients, for instance). These are approximated, and the
+      report says so.</li>
+    <li><strong>Components aren't permanent links until you save.</strong> Open the <code>.idml</code>
+      and do <strong>Save As → .indd</strong> to make the document permanent.</li>
+  </ul>
+
+  <h2>"My export opens, but it's unusable"</h2>
+
+  <div class="callout">
+    <p>If your file opens in InDesign, everything is in exactly the right place, and yet the file is
+      plainly not production-ready — swatches stripped, type not workable — you are on the
+      <strong>free tier</strong>. That is what the free export is: a proof that the conversion is
+      correct, not a file you can ship.</p>
+    <p>The <strong>$6.99/month</strong> subscription unlocks the real, clean export. Everything
+      else — scanning, the compatibility report, colour mapping, all of Setup — is free and stays
+      free.</p>
+  </div>
+
+  <h2>Windows</h2>
+
+  <p>Not supported. Version 1 is macOS only, because the companion has to be signed for the platform
+    it runs on. If there's demand, Windows is the next thing we'd build.</p>
+
+  <h2>Privacy</h2>
+
+  <p>Nothing about your design leaves your machine. The companion talks only to your own computer
+    (<code>127.0.0.1</code>) and makes no outbound network connections at all. Full details:
+    <a href="../privacy/">privacy policy</a>.</p>
+
+  <h2 id="contact">Contact</h2>
+
+  <p><a href="mailto:monochrome.systems@gmail.com">monochrome.systems@gmail.com</a></p>
+
+  <p>When reporting a problem, the things that help most:</p>
+
+  <ul>
+    <li>Your macOS version and InDesign version.</li>
+    <li>What the plugin's companion indicator says.</li>
+    <li>The output of <code>curl http://127.0.0.1:7331/ping</code>.</li>
+    <li>Whether one frame fails or all of them.</li>
+  </ul>

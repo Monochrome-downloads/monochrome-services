@@ -16,6 +16,22 @@ the bridge, running only on your own machine, only while you have it open.
 
 - Loopback-only (`127.0.0.1`) — never listens on your network or the internet.
 - Token-gated — pairs once with the plugin, rejects everything else.
-- No login-item / no background daemon — opens when you open it, auto-stops after 30 min idle.
+- No background daemon — it opens when you open it, and stops listening after 60 minutes idle.
+  "Launch at login" is an opt-in checkbox in its own menu, off by default; it registers the app
+  itself the way any application does, and nothing runs unless you switch it on.
 
 See the download page for setup steps and more detail.
+
+## Pages
+
+- [`index.html`](https://monochrome-downloads.github.io/monochrome-services/) — download + setup.
+  Hand-maintained, including the hero dot-field script.
+- [`privacy/`](https://monochrome-downloads.github.io/monochrome-services/privacy/) and
+  [`support/`](https://monochrome-downloads.github.io/monochrome-services/support/) — **generated.**
+  Edit `src/*-body.html` (or `src/docpage.css`) and run `node build-pages.mjs`; do not hand-edit
+  `privacy/index.html` or `support/index.html`.
+
+The prose for those two pages is mirrored in the plugin repo as
+`docs/indesign-export-privacy-policy.md` and `docs/indesign-export-support.md`. Those are the
+canonical wording — if you change one side, change the other, or the hosted policy and the repo
+will drift apart.

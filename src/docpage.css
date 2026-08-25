@@ -1,0 +1,108 @@
+  /* Design tokens lifted verbatim from index.html so the three pages read as one site. Only the
+     content styles below diverge — these are long-form prose pages, not a download card. */
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #5a5a5a;
+    --card-bg: #f6f6f7;
+    --border: #e2e2e4;
+    --accent: #2f6feb;
+    --accent-fg: #ffffff;
+    --code-bg: #eef0f2;
+    --good: #1f8a4c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1115;
+      --fg: #eaecef;
+      --muted: #9aa1ab;
+      --card-bg: #171a20;
+      --border: #2a2e37;
+      --accent: #5b9dff;
+      --accent-fg: #0b0e14;
+      --code-bg: #1c2028;
+      --good: #34c77a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.62 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 24px 24px 96px; }
+
+  /* Static twin of index.html's .hero-band — same fixed-black brand band and the same measured
+     139px height, minus the animated dot canvas. A privacy policy does not need a running
+     requestAnimationFrame loop behind its masthead. */
+  .hero-band {
+    background: #000;
+    width: 100%;
+    height: 139px;
+    padding: 13.9px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-band svg { height: 100%; width: auto; }
+  .hero-band path { fill: #fff; }
+
+  .crumb { margin: 24px 0 0; font-size: 13.5px; color: var(--muted); }
+  h1 { font-size: 30px; margin: 18px 0 6px; letter-spacing: -0.01em; }
+  .updated { color: var(--muted); font-size: 13.5px; margin: 0 0 32px; }
+  h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin: 44px 0 14px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  h3 { font-size: 17px; margin: 30px 0 8px; letter-spacing: -0.005em; }
+  p { margin: 0 0 14px; }
+  ul, ol { padding-left: 22px; margin: 0 0 14px; }
+  li { margin-bottom: 8px; }
+  a { color: var(--accent); }
+  strong { font-weight: 600; }
+  code {
+    background: var(--code-bg);
+    border-radius: 5px;
+    padding: 2px 6px;
+    font-size: 0.92em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-size: 13.5px;
+    line-height: 1.5;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  /* The one-sentence summary at the top of the policy, and the free-tier note on the support
+     page — the two passages a reader most needs to not skim past. */
+  .callout {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 0 0 24px;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+  }
+  footer a { margin: 0 8px; }

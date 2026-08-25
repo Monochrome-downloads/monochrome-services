@@ -1,0 +1,141 @@
+  <p class="crumb"><a href="../">&larr; Monochrome bridge</a></p>
+  <h1>IDML Export — Privacy Policy</h1>
+  <p class="updated">Last updated: 25 August 2026</p>
+
+  <p>IDML Export is a Figma plugin that converts a Figma frame into an Adobe InDesign
+    <code>.idml</code> file — live text, named CMYK and spot swatches, layers, vectors and linked
+    images. It works together with a free companion application, <strong>Monochrome bridge</strong>,
+    that you install on your own Mac.</p>
+
+  <div class="callout">
+    <p><strong>In one sentence: nothing about your design, your file, or your machine is ever sent
+      to us or to any third-party server. Everything happens on your own computer.</strong></p>
+  </div>
+
+  <h2>Data collection</h2>
+
+  <p><strong>We do not collect, store, or receive any data about you or your work.</strong> We
+    operate no server, no account system, no database, and no analytics of any kind.</p>
+
+  <ul>
+    <li><strong>No analytics, no telemetry, no crash reporting, no cookies, no identifiers.</strong></li>
+    <li><strong>We never see your file, your designs, your text, your images, or your folder
+      paths.</strong></li>
+    <li>The plugin does not know who you are beyond what Figma's own Payments system requires in
+      order to manage your subscription (see <em>Payments</em> below).</li>
+  </ul>
+
+  <h2>The companion app (Monochrome bridge)</h2>
+
+  <p>This is the part that deserves the most detail, because it is the part that is unusual.</p>
+
+  <p><strong>Why it exists.</strong> A Figma plugin runs in a sandbox that cannot write files to
+    your disk or assemble an archive of the size a real IDML package requires. So the conversion is
+    split: the plugin reads your design inside Figma and produces an intermediate description of it;
+    the companion turns that into the <code>.idml</code> file and writes it to the folder you
+    chose.</p>
+
+  <p><strong>How the two talk.</strong> Over <strong>loopback only</strong> —
+    <code>http://127.0.0.1:7331</code>, the address that means "this same computer". The companion
+    binds exclusively to the loopback interface and additionally rejects any connection that does
+    not originate from it. It is not reachable from your network, your office, or the internet, and
+    it does not open any port to the outside.</p>
+
+  <p><strong>What is sent to it.</strong> Only what is needed to build the file, and only from the
+    plugin to the companion on your own machine:</p>
+
+  <ul>
+    <li>The geometry, styling and structure of the frames you chose to export — positions, sizes,
+      transforms, colours, strokes, effects, layer names.</li>
+    <li><strong>The text content of those frames</strong>, including font names, because the export
+      produces live, editable type rather than a picture of it.</li>
+    <li><strong>Image bytes</strong> for images that are exported from Figma rather than linked from
+      disk.</li>
+    <li><strong>The folder paths you choose</strong> for output and for linked artwork, so the
+      companion can write the <code>.idml</code> there and read the hi-res originals you asked it to
+      link.</li>
+  </ul>
+
+  <p><strong>What it does with that.</strong> It writes the <code>.idml</code> file (and any
+    exported images) into the output folder you selected, and returns the result to the plugin. That
+    is all.</p>
+
+  <p><strong>What it does not do.</strong> The companion makes <strong>no outbound network
+    connections of its own</strong>. It does not phone home, check for updates, report usage, or
+    transmit anything anywhere. Your design data reaches your disk and stops there.</p>
+
+  <p><strong>Access control.</strong> Requests to the companion are authenticated with a token
+    generated on your machine at install time, which you paste into the plugin once during setup. It
+    is stored locally (see <em>Local storage</em> below) and never leaves your computer.</p>
+
+  <p><strong>Lifecycle.</strong> The companion runs only when you open it. It stops listening after
+    60 minutes of inactivity, releasing the port; you start it again from its menu-bar icon. It
+    never installs a background service and never starts itself — optionally, and only if you switch
+    it on yourself, it can open at login the same way any other application does. It is signed and
+    notarized by Apple.</p>
+
+  <p><strong>It is yours to remove.</strong> The companion is an ordinary Mac application. Deleting
+    it from <code>/Applications</code> removes it completely; the plugin then simply reports that no
+    companion is available.</p>
+
+  <h2>Network access</h2>
+
+  <p>The plugin's Figma manifest declares exactly two allowed domains, and it contacts no others:</p>
+
+  <ol>
+    <li><strong><code>http://localhost:7331</code></strong> — the companion app on your own machine,
+      described above. This traffic never leaves your computer.</li>
+    <li><strong><code>https://monochrome-downloads.github.io</code></strong> — a read-only fetch of a
+      small static <code>versions.json</code> file, so the plugin can tell you when a newer companion
+      build is available. This is an ordinary web request for a public file. It sends no information
+      about you, your file, or your work — but, like any web request, GitHub (which hosts that page)
+      will see that a request was made, in the same way it would if you opened the download page in a
+      browser. We receive nothing from it.</li>
+  </ol>
+
+  <p>The companion app itself, as stated above, makes no network requests at all — which is why the
+    version check is done on the plugin side instead.</p>
+
+  <h2>Local storage</h2>
+
+  <p>Your settings are stored <strong>locally only</strong>, using Figma's own storage APIs. These
+    are provided and controlled by Figma, on your machine — they are not a service we operate, and
+    we have no access to them.</p>
+
+  <ul>
+    <li><strong><code>clientStorage</code></strong> (per-user, on your machine): your chosen output
+      and links folder paths, your saved colour-mapping profiles and client names, your export
+      preferences, and the companion access token.</li>
+    <li><strong><code>pluginData</code></strong> (attached to the Figma file itself): per-object
+      print settings such as overprint flags, so they travel with the design rather than with your
+      machine.</li>
+  </ul>
+
+  <h2>Payments</h2>
+
+  <p>Subscription state and checkout are handled entirely by <strong>Figma's own Payments
+    platform</strong> (<code>figma.payments</code>), not by us. Figma — not this plugin — processes
+    your payment method and billing details, under Figma's own privacy policy. <strong>We never see
+    your payment information</strong>, and we receive no personal data from Figma's payments system;
+    the plugin can see only whether the current user is paid or unpaid.</p>
+
+  <h2>Third parties</h2>
+
+  <p>There are none. IDML Export uses no third-party services, SDKs, analytics providers, or hosted
+    APIs. It integrates only with Figma's own plugin APIs, and with the companion app on your own
+    machine.</p>
+
+  <h2>Children</h2>
+
+  <p>This plugin is a professional design tool and is not directed at children.</p>
+
+  <h2>Changes to this policy</h2>
+
+  <p>If this plugin's or the companion's data practices ever change — for example if a genuine
+    network feature were ever added — this page will be updated first, with the date at the top
+    revised, and the change will be reflected in the plugin's next Community listing update.</p>
+
+  <h2>Contact</h2>
+
+  <p>Questions about this policy, the plugin, or the companion app:<br>
+    <a href="mailto:monochrome.systems@gmail.com">monochrome.systems@gmail.com</a></p>
