@@ -1,0 +1,104 @@
+  <h1>Frame Multiplier — Privacy Policy</h1>
+  <p class="updated">Last updated: 11 September 2026</p>
+
+  <p>Frame Multiplier is a Figma plugin that fills the frames on a page from a few master layouts
+    you design — placing, sizing and scoring every layer for each frame's proportions.</p>
+
+  <div class="callout">
+    <p><strong>In one sentence: the plugin makes no network connections at all, and everything it
+      works out is stored inside your own Figma file, where it stays.</strong></p>
+  </div>
+
+  <h2>Data collection</h2>
+
+  <p><strong>We do not collect, store, or receive any data about you or your work.</strong> We
+    operate no server, no account system, no database, and no analytics of any kind.</p>
+
+  <ul>
+    <li><strong>No analytics, no telemetry, no crash reporting, no cookies, no identifiers.</strong></li>
+    <li><strong>We never see your file, your designs, your text, or your images.</strong></li>
+    <li>The plugin does not know who you are beyond what Figma's own Payments system requires in
+      order to manage your subscription (see <em>Payments</em> below).</li>
+  </ul>
+
+  <h2>Network access</h2>
+
+  <p><strong>None.</strong> The plugin's Figma manifest declares no allowed domains
+    (<code>allowedDomains: ["none"]</code>), so Figma itself blocks any outbound request — and there
+    is nothing in the plugin that would make one. Every calculation, including the reading of your
+    images described below, runs inside the plugin on your own computer. We check this automatically
+    on every build.</p>
+
+  <h2>What is written into your Figma file</h2>
+
+  <p>Frame Multiplier keeps its working notes as <strong>plugin data inside the file you are working
+    on</strong>, using Figma's own <code>pluginData</code> API. This travels with the file: it is
+    saved, versioned, shared and deleted with the file, exactly like the layers themselves. It is not
+    stored anywhere else, and we cannot read it. Specifically:</p>
+
+  <ul>
+    <li><strong>On the layers of your master frames:</strong> the settings you choose in Setup — a
+      layer's role (background, hero, headline, logo…), a pin, a clamp, whether it stretches or
+      scales, and whether the hero must keep clear of it.</li>
+    <li><strong>On each frame the plugin has read:</strong> a cached description of that frame's
+      layers (names, sizes, positions, text measurements, which image each layer carries — never the
+      image itself), so that the next Scan can skip frames that have not changed; and the plan the
+      last Multiply applied to it, so that a frame you move by hand afterwards can be recognised as a
+      correction.</li>
+    <li><strong>On the document:</strong> which page you confirmed as the masters page; whether
+      template mode is on; and, per image, a <strong>subject mask derived from that image</strong> —
+      the outline of a cut-out product, or a box around the salient part of a photograph. The plugin
+      reads the image's pixels inside the plugin, on your machine, to work this out; what it stores
+      is the resulting outline or box, as coordinates, <strong>not the pixels</strong>.</li>
+  </ul>
+
+  <p>Deleting the file deletes all of it. Removing a layer's setting in Setup removes that entry.
+    Nothing here is read by any other plugin, and Frame Multiplier reads nothing another plugin
+    wrote.</p>
+
+  <h2>Local preferences</h2>
+
+  <p>Four display preferences are kept in the plugin panel's own browser storage on your machine, via
+    Figma's plugin sandbox: whether the panel follows Figma's theme or your manual light/dark choice,
+    and whether two optional controls (the freeze chips and the template-mode option) are shown. They
+    contain no information about your file.</p>
+
+  <p>The plugin uses <strong>no</strong> <code>clientStorage</code>, and does not access your Team
+    Library.</p>
+
+  <h2>Import brief with AI</h2>
+
+  <p>This feature writes a prompt for you to give to an AI assistant of your own choosing, and later
+    reads back the block of text that assistant produces. <strong>The plugin itself never contacts an
+    AI or any other service.</strong> Copying the prompt uses your clipboard; pasting the answer is
+    done by you. What you share with that assistant, and how it handles it, is governed by that
+    assistant's own terms and privacy policy, not by this one. The plugin then builds pages and empty
+    frames in your file from the pasted text, and stores nothing further.</p>
+
+  <h2>Payments</h2>
+
+  <p>Subscription state and checkout are handled entirely by <strong>Figma's own Payments
+    platform</strong> (<code>figma.payments</code>), not by us. Figma — not this plugin — processes
+    your payment method and billing details, under Figma's own privacy policy. <strong>We never see
+    your payment information</strong>, and we receive no personal data from Figma's payments system;
+    the plugin can see only whether the current user is entitled to the paid feature or not.</p>
+
+  <h2>Third parties</h2>
+
+  <p>There are none. Frame Multiplier uses no third-party services, SDKs, analytics providers, or
+    hosted APIs. It integrates only with Figma's own plugin APIs.</p>
+
+  <h2>Children</h2>
+
+  <p>This plugin is a professional design tool and is not directed at children.</p>
+
+  <h2>Changes to this policy</h2>
+
+  <p>If this plugin's data practices ever change — for example if a genuine network feature were ever
+    added — this page will be updated first, with the date at the top revised, and the change will be
+    reflected in the plugin's next Community listing update.</p>
+
+  <h2>Contact</h2>
+
+  <p>Questions about this policy or the plugin:
+    <a href="mailto:monochrome.systems@gmail.com">monochrome.systems@gmail.com</a></p>

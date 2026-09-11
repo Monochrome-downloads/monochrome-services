@@ -24,14 +24,29 @@ See the download page for setup steps and more detail.
 
 ## Pages
 
+This site now serves the document pages for **two products**: the companion itself (whose privacy
+and support pages are IDML Export's) and **Frame Multiplier**, a Figma plugin with no companion at
+all — it is here because this is where the family's pages live, and Figma requires a public
+privacy-policy URL for a paid plugin.
+
 - [`index.html`](https://monochrome-downloads.github.io/monochrome-services/) — download + setup.
   Hand-maintained, including the hero dot-field script.
 - [`privacy/`](https://monochrome-downloads.github.io/monochrome-services/privacy/) and
-  [`support/`](https://monochrome-downloads.github.io/monochrome-services/support/) — **generated.**
-  Edit `src/*-body.html` (or `src/docpage.css`) and run `node build-pages.mjs`; do not hand-edit
-  `privacy/index.html` or `support/index.html`.
+  [`support/`](https://monochrome-downloads.github.io/monochrome-services/support/) — IDML Export /
+  the companion. **Generated.**
+- [`frame-multiplier/privacy/`](https://monochrome-downloads.github.io/monochrome-services/frame-multiplier/privacy/)
+  and [`frame-multiplier/support/`](https://monochrome-downloads.github.io/monochrome-services/frame-multiplier/support/)
+  — Frame Multiplier. **Generated.** (Added 2026-09-11.)
 
-The prose for those two pages is mirrored in the plugin repo as
-`docs/indesign-export-privacy-policy.md` and `docs/indesign-export-support.md`. Those are the
-canonical wording — if you change one side, change the other, or the hosted policy and the repo
-will drift apart.
+For every generated page: edit `src/*-body.html` (or `src/docpage.css`) and run
+`node build-pages.mjs`; **do not hand-edit any `index.html` under those directories.** Each page's
+title, description, footer links and footer note are in `build-pages.mjs`'s `PAGES` list, and its
+links back to the site root are computed from its own directory depth, so a nested page resolves.
+
+**A published path is never moved.** A Figma listing points at these URLs, and a listing under
+review cannot be corrected quickly.
+
+The prose for all four pages is mirrored in the plugin repo, which is canonical:
+`docs/indesign-export-{privacy-policy,support}.md` and
+`docs/frame-multiplier-{privacy-policy,support}.md`. If you change one side, change the other, or
+the hosted policy and the repo will drift apart.

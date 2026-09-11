@@ -1,0 +1,134 @@
+  <h1>Frame Multiplier — Support</h1>
+  <p class="updated">Last updated: 11 September 2026</p>
+
+  <p>Frame Multiplier fills every frame on a page from a few master layouts. Nearly every question
+    comes down to one of three things: <strong>the masters page</strong>, <strong>what a frame still
+    needs</strong>, or <strong>the trial</strong>. This page takes them in the order people hit
+    them.</p>
+
+  <h2>"Nothing happens" / "Multiply isn't there"</h2>
+
+  <p><strong>1. There is no masters page yet.</strong> Frame Multiplier needs one page holding your
+    finished master frames. Name it <code>[MASTERS]</code> and the plugin finds it on its own;
+    otherwise pick it under <strong>Setup → Masters</strong>. Until it has one, Scan refuses and the
+    Frames tab offers only <strong>Import brief with AI</strong>, which builds the pages for you.</p>
+
+  <p>If you have a page of frames whose names end in "master", the plugin proposes it. Check the
+    proposal under Setup → Masters before multiplying — a wrong guess can be corrected there before
+    anything is written.</p>
+
+  <p><strong>2. You are ON the masters page.</strong> The Frames tab then lists the masters
+    themselves — there is nothing to multiply here. Switch to the page holding the frames you want
+    filled; the plugin re-scans by itself when you change page.</p>
+
+  <p><strong>3. Every frame is already up to date.</strong> The Multiply button only shows while
+    there is something to do. When every frame on the page matches its plan, the summary bar reads
+    <strong>up to date</strong> and the button is gone. That is the finished state, not a fault.</p>
+
+  <p><strong>4. Some frames were left alone.</strong> Frames that are <strong>locked</strong> in
+    Figma, or marked <strong>Ready for Dev / Completed</strong>, are never touched — their row says
+    so, and the summary counts them as skipped. Unlock the frame or clear its status if you meant it
+    to be filled.</p>
+
+  <h2>"It says updates available after every Multiply"</h2>
+
+  <p>Click the frame and read the <strong>Needs</strong> line on its card: it names exactly what
+    another apply would change, layer by layer. Three usual causes:</p>
+
+  <ul>
+    <li><strong>A layer at a different depth in one master.</strong> If the logo sits on top in one
+      master and behind a panel in another, the plugin adds and removes it in turn. Put the same layer
+      at the same stacking position in every master, then Scan.</li>
+    <li><strong>A layer with clip content off.</strong> The plugin measures a layer's box, not what
+      spills out of it; a layer whose content overflows reads differently in every frame. Turn clip
+      content on, or size the container to its content. The masters rows flag this as "overflows its
+      box".</li>
+    <li><strong>A frame you moved by hand.</strong> That is deliberate: a hand-moved frame is read
+      back as a correction and feeds the next solve. If you did not mean it, Multiply once more and it
+      snaps back.</li>
+  </ul>
+
+  <h2>"The hero sits on the headline" / "the layout looks wrong"</h2>
+
+  <p>Click the frame. The card draws the plan over the frame, and the <strong>Placements</strong>
+    list gives the evidence for every layer — which masters it blended between, what it was pinned
+    to, and why.</p>
+
+  <ul>
+    <li><strong>"from 1 of N masters"</strong> in the evidence means the frame's proportions lie
+      outside the range your masters cover, so it is held at the nearest one rather than blended. Add
+      a master at that proportion — a leaderboard, a story — and the in-between sizes follow it.</li>
+    <li><strong>A clamp on the wrong side.</strong> The <strong>C</strong> cell in Setup → Components
+      holds an edge of the hero at the frame line. <code>sw</code> next to <code>s</code> is an easy
+      slip: a hero clamped west slides to the left edge and onto the copy. Clear the cell and
+      Scan.</li>
+    <li><strong>The hero should keep clear of a layer.</strong> The <strong>Co</strong> bolt in
+      Setup → Components: lit means the hero dodges that layer in every frame; dim means the masters
+      themselves put the hero over it, so it is allowed. Click to switch.</li>
+    <li><strong>A photo's subject is off.</strong> Draw a closed path named <code>collision</code>
+      (the outline of the product) or <code>focal</code> (a box around the part that matters) inside
+      the layer, on any master. It counts whether it is shown or hidden, filled or just stroked —
+      only the name matters. Then Scan.</li>
+  </ul>
+
+  <p><strong>Outlined headlines.</strong> A headline flattened to outlines places exactly like live
+    text — once it has its role. Name the layer with <em>headline</em> in it, or set the role in
+    Setup → Components; then Scan.</p>
+
+  <h2>"Scan didn't notice my change"</h2>
+
+  <p>Scan skips frames whose layers, sizes and text have not changed since the last read. Two edits
+    it cannot see: a guide path (collision, focal, crop, slot) added or moved inside a layer, and a
+    swap of one master's content that leaves its layer names and boxes identical.
+    <strong>Shift-click Scan</strong> to rebuild the cache and read every frame afresh.</p>
+
+  <h2>"Multiply refused — already in progress"</h2>
+
+  <p>One document write runs at a time. Multiply, Clear frames and the brief's Build each refuse a
+    second click while the first is still running. Wait for the summary bar to finish, then click
+    again. Nothing was written twice.</p>
+
+  <h2>"My frames are empty after Clear frames"</h2>
+
+  <p>That is what it does: <strong>Clear frames on this page</strong> (behind the cog) removes every
+    layer from every frame on the current page — never the masters page, never locked or
+    Ready-for-Dev frames, never print guides — so a page can be multiplied again from scratch. It
+    asks you to click twice, and it is <strong>one undo step</strong> (⌘Z) if you did not mean
+    it.</p>
+
+  <h2>"Multiply says Subscribe"</h2>
+
+  <p>Your seven-day trial has ended. <strong>Multiply — and the card's Apply this one — is the one
+    paid action: $250 a month</strong>, for studios that roll out campaigns every week. Everything
+    else stays free without limit: Scan, Setup and every setting, the plan and score for every frame,
+    the card and its preview, Import brief with AI, Clear frames, and Promote to master. Clicking the
+    button opens Figma's checkout; the moment Figma confirms, the label reverts and Multiply writes —
+    no reload needed. Subscriptions are managed by Figma, in your Figma account.</p>
+
+  <h2>Import brief with AI</h2>
+
+  <p>The plugin writes a five-step prompt for you to paste into whatever AI assistant you already
+    use. The assistant answers step by step; when it hands back the final block of text, paste that
+    into the plugin and press <strong>Build</strong>. The plugin itself never contacts the assistant —
+    it only reads what you paste. If the review step warns about a row, the block came back with a
+    value the plugin could not read; the warning names the line and the column. Ask the assistant to
+    correct it and paste again.</p>
+
+  <h2>Privacy</h2>
+
+  <p>The plugin makes no network connections at all. Everything it works out is stored as plugin data
+    in your own Figma file. Full details: <a href="../privacy/">privacy policy</a>.</p>
+
+  <h2 id="contact">Contact</h2>
+
+  <p><a href="mailto:monochrome.systems@gmail.com">monochrome.systems@gmail.com</a></p>
+
+  <p>When reporting a problem, the things that help most:</p>
+
+  <ul>
+    <li>The master and the frame it went wrong on, and their sizes.</li>
+    <li>The frame's <strong>Needs</strong> line, or its <strong>Placements</strong> evidence, from
+      the card.</li>
+    <li>Whether one frame is wrong or all of them.</li>
+    <li>Whether a fresh <strong>shift-click Scan</strong> changes anything.</li>
+  </ul>
