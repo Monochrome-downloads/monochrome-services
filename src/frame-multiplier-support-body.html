@@ -20,7 +20,7 @@
   <p><strong>2. You are ON the masters page.</strong> The Frames tab then lists the masters
     themselves — there is nothing to multiply here, so the Scan button steps aside and the refresh icon
     in the top bar re-reads the masters while you work on them. Switch to the page holding the frames
-    you want filled, then press <strong>Scan</strong>.</p>
+    you want filled, then press <strong>Scan for updates</strong>.</p>
 
   <p><strong>3. Every frame is already up to date.</strong> The Multiply button only shows while
     there is something to do. When every frame on the page matches its plan the button is gone, and
@@ -79,12 +79,25 @@
 
   <h2>"Scan didn't notice my change"</h2>
 
-  <p>Scan always re-reads every frame on the page and every master — it never works from a stored
-    copy. If something looks out of date, press Scan.</p>
+  <p><strong>Scan for updates</strong> always re-reads every frame on the page and every master — it
+    never works from a stored copy. If something looks out of date, press it.</p>
 
-  <p>You should rarely need to. Switching to a page reads that page as you arrive, so the tree is
-    ready when you get there, and opening a frame's card re-reads that frame first — what you are
-    looking at when you decide is always read fresh from the file.</p>
+  <h3>Building and scanning are not the same thing</h3>
+
+  <p>When you switch to a page, the plugin <strong>builds</strong> the tree: it says <em>Building the
+    tree…</em>, then <em>Built &lt;page name&gt; · N frames</em>. That is data being loaded, not a
+    check. Empty frames are read in full — there is nothing in them to miss — but a frame that already
+    has layers may come from a stored copy, and so may your masters. That is why a built tree never
+    says <em>frame correct</em>: it says <strong>not scanned</strong>, because it has not compared that
+    frame against your masters.</p>
+
+  <p><strong>Scan for updates</strong> is the check. It re-reads everything, and the bar then says
+    <em>Scanned &lt;page name&gt;</em> and counts your masters. Press it after editing a master, or any
+    time you want the tree to be an answer rather than a starting point.</p>
+
+  <p>One thing is always fresh either way: <strong>opening a frame's card re-reads that frame
+    first</strong>, so the layout you are looking at when you decide is read from the file, not from a
+    stored copy.</p>
 
   <h2>"Multiply refused — already in progress"</h2>
 
