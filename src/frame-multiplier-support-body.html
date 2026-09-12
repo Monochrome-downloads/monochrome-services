@@ -77,10 +77,8 @@
 
   <h2>"Scan didn't notice my change"</h2>
 
-  <p>Scan skips frames whose layers, sizes and text have not changed since the last read. Two edits
-    it cannot see: a guide path (collision, focal, crop, slot) added or moved inside a layer, and a
-    swap of one master's content that leaves its layer names and boxes identical.
-    <strong>Shift-click Scan</strong> to rebuild the cache and read every frame afresh.</p>
+  <p>Scan always re-reads every frame on the page and every master — it never works from a stored
+    copy. If something looks out of date, press Scan.</p>
 
   <h2>"Multiply refused — already in progress"</h2>
 
@@ -130,5 +128,5 @@
     <li>The frame's <strong>Needs</strong> line, or its <strong>Placements</strong> evidence, from
       the card.</li>
     <li>Whether one frame is wrong or all of them.</li>
-    <li>Whether a fresh <strong>shift-click Scan</strong> changes anything.</li>
+    <li>Whether a fresh <strong>Scan</strong> changes anything.</li>
   </ul>
