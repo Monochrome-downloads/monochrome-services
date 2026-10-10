@@ -5,7 +5,8 @@
 // Two products are served from this site now (2026-09-11): the Monochrome bridge companion, whose
 // pages are IDML Export's and keep the bare /privacy/ and /support/ paths they launched on, and
 // Frame Multiplier, a Figma plugin with no companion at all, under /frame-multiplier/. Paths are
-// never moved once a Figma listing points at them.
+// never moved once a Figma listing points at them. One Percent, an iOS app, followed on 2026-10-11 under
+// /one-percent/; the app's Settings and its App Store listing point at those paths.
 //
 // Each page carries its own crumb, footer links and footer note, and `up` — the relative prefix
 // back to the site root, from the depth of its own directory — so a nested page's links resolve.
@@ -49,6 +50,22 @@ const PAGES = [
     desc: 'Troubleshooting for Frame Multiplier: the masters page, frames that keep saying updates available, layouts that come out wrong, and the trial.',
     footerLinks: (up) => `<a href="${up}frame-multiplier/privacy/">Privacy</a>·<a href="${up}frame-multiplier/support/">Support</a>·<a href="${up}">Monochrome bridge</a>`,
     footerNote: 'Frame Multiplier · part of the Monochrome Studio Tools plugin family',
+  },
+  {
+    dir: 'one-percent/privacy',
+    body: 'one-percent-privacy-body.html',
+    title: 'One Percent — Privacy Policy',
+    desc: 'One Percent keeps your workouts and Health data on your iPhone and Apple Watch. What leaves the device, only if you join a training group, in full.',
+    footerLinks: (up) => `<a href="${up}one-percent/privacy/">Privacy</a>·<a href="${up}one-percent/support/">Support</a>`,
+    footerNote: 'One Percent · a gym tracker for iPhone and Apple Watch',
+  },
+  {
+    dir: 'one-percent/support',
+    body: 'one-percent-support-body.html',
+    title: 'One Percent — Support',
+    desc: 'Help for One Percent: the Apple Watch, Apple Health permissions, deleting group data, and switching between kilograms and pounds.',
+    footerLinks: (up) => `<a href="${up}one-percent/privacy/">Privacy</a>·<a href="${up}one-percent/support/">Support</a>`,
+    footerNote: 'One Percent · a gym tracker for iPhone and Apple Watch',
   },
 ];
 

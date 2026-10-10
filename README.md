@@ -37,6 +37,10 @@ privacy-policy URL for a paid plugin.
 - [`frame-multiplier/privacy/`](https://monochrome-downloads.github.io/monochrome-services/frame-multiplier/privacy/)
   and [`frame-multiplier/support/`](https://monochrome-downloads.github.io/monochrome-services/frame-multiplier/support/)
   — Frame Multiplier. **Generated.** (Added 2026-09-11.)
+- [`one-percent/privacy/`](https://monochrome-downloads.github.io/monochrome-services/one-percent/privacy/)
+  and [`one-percent/support/`](https://monochrome-downloads.github.io/monochrome-services/one-percent/support/)
+  — One Percent, the iPhone and Apple Watch gym tracker. **Generated.** (Added 2026-10-11.) The app's
+  Settings and its App Store listing point at these URLs.
 
 For every generated page: edit `src/*-body.html` (or `src/docpage.css`) and run
 `node build-pages.mjs`; **do not hand-edit any `index.html` under those directories.** Each page's
@@ -49,4 +53,5 @@ review cannot be corrected quickly.
 The prose for all four pages is mirrored in the plugin repo, which is canonical:
 `docs/indesign-export-{privacy-policy,support}.md` and
 `docs/frame-multiplier-{privacy-policy,support}.md`. If you change one side, change the other, or
-the hosted policy and the repo will drift apart.
+the hosted policy and the repo will drift apart. One Percent's prose is canonical in its own repo, `site/privacy.html` and
+`site/support.html`; the same rule applies.
