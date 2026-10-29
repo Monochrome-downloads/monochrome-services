@@ -41,6 +41,11 @@ privacy-policy URL for a paid plugin.
   and [`one-percent/support/`](https://monochrome-downloads.github.io/monochrome-services/one-percent/support/)
   — One Percent, the iPhone and Apple Watch gym tracker. **Generated.** (Added 2026-10-11.) The app's
   Settings and its App Store listing point at these URLs.
+- [`assemblr/privacy/`](https://monochrome-downloads.github.io/monochrome-services/assemblr/privacy/)
+  and [`assemblr/licence/`](https://monochrome-downloads.github.io/monochrome-services/assemblr/licence/)
+  — Assemblr, the Adobe InDesign and Photoshop plugin. **Generated.** (Added 2026-10-29.) Its Adobe
+  listings point at these URLs; `assemblr/Assemblr-reviewer-samples.zip` beside them is the sample
+  files the listing's reviewer note links to (drawn by a script, no third-party brands).
 
 For every generated page: edit `src/*-body.html` (or `src/docpage.css`) and run
 `node build-pages.mjs`; **do not hand-edit any `index.html` under those directories.** Each page's
@@ -52,6 +57,7 @@ review cannot be corrected quickly.
 
 The prose for all four pages is mirrored in the plugin repo, which is canonical:
 `docs/indesign-export-{privacy-policy,support}.md` and
-`docs/frame-multiplier-{privacy-policy,support}.md`. If you change one side, change the other, or
+`docs/frame-multiplier-{privacy-policy,support}.md`; Assemblr's is canonical in the Catalogue Producer repo,
+`docs/assemblr-privacy.md` and `docs/assemblr-licence.md`. If you change one side, change the other, or
 the hosted policy and the repo will drift apart. One Percent's prose is canonical in its own repo, `site/privacy.html` and
 `site/support.html`; the same rule applies.
