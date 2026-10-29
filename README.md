@@ -44,8 +44,9 @@ privacy-policy URL for a paid plugin.
 - [`assemblr/privacy/`](https://monochrome-downloads.github.io/monochrome-services/assemblr/privacy/)
   and [`assemblr/licence/`](https://monochrome-downloads.github.io/monochrome-services/assemblr/licence/)
   — Assemblr, the Adobe InDesign and Photoshop plugin. **Generated.** (Added 2026-10-29.) Its Adobe
-  listings point at these URLs; `assemblr/Assemblr-reviewer-samples.zip` beside them is the sample
-  files the listing's reviewer note links to (drawn by a script, no third-party brands).
+  listings point at these URLs; `assemblr/Assemblr-reviewer-samples.zip` (InDesign) and
+  `assemblr/Assemblr-for-Photoshop-sample.psd` (Photoshop) beside them are the sample files the listings'
+  reviewer notes link to (drawn by a script, no third-party brands).
 
 For every generated page: edit `src/*-body.html` (or `src/docpage.css`) and run
 `node build-pages.mjs`; **do not hand-edit any `index.html` under those directories.** Each page's
