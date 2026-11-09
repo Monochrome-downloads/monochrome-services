@@ -9,6 +9,7 @@
 // /one-percent/; the app's Settings and its App Store listing point at those paths.
 // Assemblr, an Adobe InDesign and Photoshop plugin, followed on 2026-10-29 under /assemblr/ (privacy and
 // licence, with the reviewer's sample files beside them); its Adobe listings point at those paths.
+// Automated Assemblr, an Adobe InDesign plugin, followed on 2026-11-09 under /automated-assemblr/ (privacy and licence).
 //
 // Each page carries its own crumb, footer links and footer note, and `up` — the relative prefix
 // back to the site root, from the depth of its own directory — so a nested page's links resolve.
@@ -84,6 +85,22 @@ const PAGES = [
     desc: 'The licence agreement for Assemblr and Assemblr for Photoshop: what a purchase lets you do, and what it does not.',
     footerLinks: (up) => `<a href="${up}assemblr/privacy/">Privacy</a>·<a href="${up}assemblr/licence/">Licence</a>`,
     footerNote: 'Assemblr · a plugin for Adobe InDesign and Photoshop',
+  },
+  {
+    dir: 'automated-assemblr/privacy',
+    body: 'automated-assemblr-privacy-body.html',
+    title: 'Automated Assemblr — Privacy Policy',
+    desc: 'Automated Assemblr runs entirely on your computer: no account, no network access, no analytics. What it reads, writes and stores, and where, in full.',
+    footerLinks: (up) => `<a href="${up}automated-assemblr/privacy/">Privacy</a>·<a href="${up}automated-assemblr/licence/">Licence</a>`,
+    footerNote: 'Automated Assemblr · a plugin for Adobe InDesign',
+  },
+  {
+    dir: 'automated-assemblr/licence',
+    body: 'automated-assemblr-licence-body.html',
+    title: 'Automated Assemblr — Licence Agreement',
+    desc: 'The licence agreement for Automated Assemblr: what a purchase lets you do, and what it does not.',
+    footerLinks: (up) => `<a href="${up}automated-assemblr/privacy/">Privacy</a>·<a href="${up}automated-assemblr/licence/">Licence</a>`,
+    footerNote: 'Automated Assemblr · a plugin for Adobe InDesign',
   },
 ];
 
