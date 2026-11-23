@@ -1,5 +1,7 @@
-// Assembles the site's document pages (privacy + support, per product) from the shared
-// docpage.css, the wordmark lifted out of index.html, and one body fragment each.
+// Assembles the site's document pages (privacy, support, licence, per product) from one body fragment
+// each, on the Monochrome website's design (since 2026-11-23): every page links assets/css/main.css,
+// published here by ms-website's `npm run bridge` with the download page, and inlines src/docpage.css
+// for the long-form type. Each product has a local nav (NAV below) and the house footer.
 // Re-run this rather than hand-editing the generated pages.
 //
 // Two products are served from this site now (2026-09-11): the Monochrome bridge companion, whose
@@ -15,97 +17,121 @@
 // back to the site root, from the depth of its own directory — so a nested page's links resolve.
 import fs from 'node:fs';
 
-const here = new URL("./", import.meta.url).pathname;
-const read = (p) => fs.readFileSync(here + p, 'utf8');
+const here0 = new URL("./", import.meta.url).pathname;
+const read = (p) => fs.readFileSync(here0 + p, 'utf8');
 
 const css = read("src/docpage.css");
-const wordmark = read("src/wordmark.svg");
+const year = new Date().getFullYear();
+const DMG = 'https://github.com/Monochrome-downloads/monochrome-services/releases/latest/download/Monochrome-bridge.dmg';
+
+// Each product's local nav: its name (linked to `home`, relative to the site root, when it has a page
+// here), its pages, and a button. The same links are repeated in the footer, because the site's local
+// nav hides its links on a phone.
+const NAV = {
+  bridge: {
+    title: 'Monochrome Bridge', home: '',
+    links: [['Privacy', 'privacy/'], ['Support', 'support/']],
+    footer: [['Download page', '']],
+    button: ['Download', DMG],
+  },
+  'frame-multiplier': { title: 'Frame Multiplier', links: [['Privacy', 'frame-multiplier/privacy/'], ['Support', 'frame-multiplier/support/']] },
+  'one-percent': { title: 'One Percent', links: [['Privacy', 'one-percent/privacy/'], ['Support', 'one-percent/support/']] },
+  assemblr: { title: 'Assemblr', links: [['Privacy', 'assemblr/privacy/'], ['Licence', 'assemblr/licence/']] },
+  'automated-assemblr': { title: 'Automated Assemblr', links: [['Privacy', 'automated-assemblr/privacy/'], ['Licence', 'automated-assemblr/licence/']] },
+};
 
 const PAGES = [
   {
     dir: 'privacy',
+    nav: 'bridge',
     body: 'privacy-body.html',
     title: 'IDML Export — Privacy Policy',
     desc: 'IDML Export collects nothing. Everything happens on your own computer — what the plugin and the Monochrome bridge companion do with your data, in full.',
-    footerLinks: (up) => `<a href="${up}">Download</a>·<a href="${up}privacy/">Privacy</a>·<a href="${up}support/">Support</a>`,
-    footerNote: 'Monochrome bridge · part of the Monochrome Studio Tools plugin family',
+    footerNote: 'IDML Export · a plugin for Figma, with Monochrome Bridge for Mac',
   },
   {
     dir: 'support',
+    nav: 'bridge',
     body: 'support-body.html',
     title: 'IDML Export — Support',
     desc: 'Troubleshooting for IDML Export and the Monochrome bridge companion app: install, pairing, the idle timeout, port conflicts, and export problems.',
-    footerLinks: (up) => `<a href="${up}">Download</a>·<a href="${up}privacy/">Privacy</a>·<a href="${up}support/">Support</a>`,
-    footerNote: 'Monochrome bridge · part of the Monochrome Studio Tools plugin family',
+    footerNote: 'IDML Export · a plugin for Figma, with Monochrome Bridge for Mac',
   },
   {
     dir: 'frame-multiplier/privacy',
+    nav: 'frame-multiplier',
     body: 'frame-multiplier-privacy-body.html',
     title: 'Frame Multiplier — Privacy Policy',
     desc: 'Frame Multiplier makes no network connections at all. Everything it works out is stored inside your own Figma file — what is written there, in full.',
-    footerLinks: (up) => `<a href="${up}frame-multiplier/privacy/">Privacy</a>·<a href="${up}frame-multiplier/support/">Support</a>·<a href="${up}">Monochrome bridge</a>`,
-    footerNote: 'Frame Multiplier · part of the Monochrome Studio Tools plugin family',
+    footerNote: 'Frame Multiplier · a plugin for Figma',
   },
   {
     dir: 'frame-multiplier/support',
+    nav: 'frame-multiplier',
     body: 'frame-multiplier-support-body.html',
     title: 'Frame Multiplier — Support',
     desc: 'Troubleshooting for Frame Multiplier: the masters page, frames that keep saying updates available, layouts that come out wrong, and the trial.',
-    footerLinks: (up) => `<a href="${up}frame-multiplier/privacy/">Privacy</a>·<a href="${up}frame-multiplier/support/">Support</a>·<a href="${up}">Monochrome bridge</a>`,
-    footerNote: 'Frame Multiplier · part of the Monochrome Studio Tools plugin family',
+    footerNote: 'Frame Multiplier · a plugin for Figma',
   },
   {
     dir: 'one-percent/privacy',
+    nav: 'one-percent',
     body: 'one-percent-privacy-body.html',
     title: 'One Percent — Privacy Policy',
     desc: 'One Percent keeps your workouts and Health data on your iPhone and Apple Watch. What leaves the device, only if you join a training group, in full.',
-    footerLinks: (up) => `<a href="${up}one-percent/privacy/">Privacy</a>·<a href="${up}one-percent/support/">Support</a>`,
     footerNote: 'One Percent · a gym tracker for iPhone and Apple Watch',
   },
   {
     dir: 'one-percent/support',
+    nav: 'one-percent',
     body: 'one-percent-support-body.html',
     title: 'One Percent — Support',
     desc: 'Help for One Percent: the Apple Watch, Apple Health permissions, deleting group data, and switching between kilograms and pounds.',
-    footerLinks: (up) => `<a href="${up}one-percent/privacy/">Privacy</a>·<a href="${up}one-percent/support/">Support</a>`,
     footerNote: 'One Percent · a gym tracker for iPhone and Apple Watch',
   },
   {
     dir: 'assemblr/privacy',
+    nav: 'assemblr',
     body: 'assemblr-privacy-body.html',
     title: 'Assemblr — Privacy Policy',
     desc: 'Assemblr runs entirely on your computer: no account, no network access, no analytics. What it reads and stores, and where, in full.',
-    footerLinks: (up) => `<a href="${up}assemblr/privacy/">Privacy</a>·<a href="${up}assemblr/licence/">Licence</a>`,
     footerNote: 'Assemblr · a plugin for Adobe InDesign and Photoshop',
   },
   {
     dir: 'assemblr/licence',
+    nav: 'assemblr',
     body: 'assemblr-licence-body.html',
     title: 'Assemblr — Licence Agreement',
     desc: 'The licence agreement for Assemblr and Assemblr for Photoshop: what a purchase lets you do, and what it does not.',
-    footerLinks: (up) => `<a href="${up}assemblr/privacy/">Privacy</a>·<a href="${up}assemblr/licence/">Licence</a>`,
     footerNote: 'Assemblr · a plugin for Adobe InDesign and Photoshop',
   },
   {
     dir: 'automated-assemblr/privacy',
+    nav: 'automated-assemblr',
     body: 'automated-assemblr-privacy-body.html',
     title: 'Automated Assemblr — Privacy Policy',
     desc: 'Automated Assemblr runs entirely on your computer: no account, no network access, no analytics. What it reads, writes and stores, and where, in full.',
-    footerLinks: (up) => `<a href="${up}automated-assemblr/privacy/">Privacy</a>·<a href="${up}automated-assemblr/licence/">Licence</a>`,
     footerNote: 'Automated Assemblr · a plugin for Adobe InDesign',
   },
   {
     dir: 'automated-assemblr/licence',
+    nav: 'automated-assemblr',
     body: 'automated-assemblr-licence-body.html',
     title: 'Automated Assemblr — Licence Agreement',
     desc: 'The licence agreement for Automated Assemblr: what a purchase lets you do, and what it does not.',
-    footerLinks: (up) => `<a href="${up}automated-assemblr/privacy/">Privacy</a>·<a href="${up}automated-assemblr/licence/">Licence</a>`,
     footerNote: 'Automated Assemblr · a plugin for Adobe InDesign',
   },
 ];
 
 for (const page of PAGES) {
   const up = '../'.repeat(page.dir.split('/').length);
+  const nav = NAV[page.nav];
+  const here = page.dir + '/';
+  const link = ([label, path]) => `<a href="${up}${path}"${path === here ? ' class="is-current" aria-current="page"' : ''}>${label}</a>`;
+  const title = nav.home === undefined
+    ? `<span class="localnav-title">${nav.title}</span>`
+    : `<a class="localnav-title" href="${up}${nav.home}">${nav.title}</a>`;
+  const button = nav.button ? `\n      <a class="button button-small" href="${nav.button[1]}">${nav.button[0]}</a>` : '';
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -113,26 +139,42 @@ for (const page of PAGES) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${page.title}</title>
 <meta name="description" content="${page.desc}">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="${up}favicon.svg" type="image/svg+xml">
+<link rel="preload" href="${up}assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="${up}assets/css/main.css">
 <style>
 ${css}</style>
 </head>
 <body>
-<div class="hero-band" aria-hidden="true">
-  ${wordmark}
-</div>
-<div class="wrap">
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="localnav theme-light" aria-label="${nav.title}">
+  <div class="localnav-content">
+    ${title}
+    <div class="localnav-menu">
+      <ul class="localnav-links">${nav.links.map((l) => `<li>${link(l)}</li>`).join('')}</ul>${button}
+    </div>
+  </div>
+</nav>
+<main id="main" class="doc theme-light">
+<div class="container doc-col">
 
 ${read("src/" + page.body)}
-  <footer>
-    ${page.footerLinks(up)}
-    <div style="margin-top:10px">${page.footerNote}</div>
-  </footer>
-
 </div>
+</main>
+<footer class="footer">
+  <div class="footer-content">
+    <nav class="doc-footer-links" aria-label="${nav.title} pages">${[...(nav.footer || []), ...nav.links].map(([label, path]) => `<a href="${up}${path}">${label}</a>`).join('')}</nav>
+    <div class="footer-legal doc-footer-legal">
+      <p>${page.footerNote}</p>
+      <p>Copyright © ${year} Monochrome Systems. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
 `;
-  const outDir = `${here}${page.dir}`;
+  const outDir = `${here0}${page.dir}`;
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(`${outDir}/index.html`, html);
   console.log(`${page.dir}/index.html  ${html.length} bytes`);
