@@ -30,7 +30,10 @@ all — it is here because this is where the family's pages live, and Figma requ
 privacy-policy URL for a paid plugin.
 
 - [`index.html`](https://monochrome-downloads.github.io/monochrome-services/) — download + setup.
-  Hand-maintained, including the hero dot-field script.
+  **Generated in the website repo** (`ms-website`, 2026-11-23): its words are `src/_data/bridge.js`, its
+  layout `src/bridge.njk` + `src/assets/css/bridge.css`. Run `npm run bridge` there; it rebuilds the
+  site and writes `index.html`, `assets/`, `favicon.svg` and `.nojekyll` here. Do not hand-edit them.
+  (Before that it was hand-maintained, with a hero dot-field script.)
 - [`privacy/`](https://monochrome-downloads.github.io/monochrome-services/privacy/) and
   [`support/`](https://monochrome-downloads.github.io/monochrome-services/support/) — IDML Export /
   the companion. **Generated.**
