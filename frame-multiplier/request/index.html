@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frame Multiplier — Request setup</title>
+<meta name="description" content="Send us your Figma file and we set up the masters and run the rollout. Setup is free; you pay $1 a frame to release, $99 minimum.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/css/main.css">
+<style>
+/* The document pages (privacy, support, licence) on the Monochrome website's design, since 2026-11-23.
+   The house look (Inter, the theme tokens, the white local nav, the buttons and the grey footer) comes
+   from assets/css/main.css, which ms-website's `npm run bridge` publishes here with the download page;
+   every page links it. This file adds only the long-form type for one 720px column, in the site's own
+   sizes: the page title at its 48px heading size, h2 as its uppercase section label over a hairline,
+   h3 at its step-title size, body text in its secondary grey. */
+.doc { padding: 72px 0 112px; }
+.doc-col { --w: 720px; }
+.doc .crumb { margin: 0 0 18px; font-size: 12px; line-height: 1.33; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--fg-3); }
+.doc .crumb a { color: inherit; text-decoration: none; }
+.doc .crumb a:hover { color: var(--fg); }
+.doc h1 { font-size: 48px; line-height: 1.1; letter-spacing: -0.028em; }
+.doc .updated { margin: 14px 0 48px; font-size: 14px; color: var(--fg-3); }
+.doc h2 {
+  margin: 64px 0 22px; padding-bottom: 12px; border-bottom: 1px solid var(--line);
+  font-size: 12px; line-height: 1.33; letter-spacing: 0.07em; text-transform: uppercase; color: var(--fg-3);
+}
+.doc h3 { margin: 36px 0 10px; font-size: 22px; line-height: 1.25; letter-spacing: -0.018em; }
+.doc p, .doc ul, .doc ol { margin: 0 0 16px; color: var(--fg-2); }
+.doc ul { padding-left: 22px; list-style: disc; }
+.doc ol { padding-left: 22px; list-style: decimal; }
+.doc li { margin-bottom: 8px; padding-left: 2px; }
+.doc li::marker { color: var(--fg-3); }
+.doc strong { font-weight: 600; color: var(--fg); }
+.doc a { color: var(--fg); text-decoration: underline; text-decoration-color: var(--btn-line); text-underline-offset: 3px; }
+.doc a:hover { text-decoration-color: currentColor; }
+.doc code { padding: 2px 6px; border-radius: 5px; background: var(--card); font-family: var(--font-mono); font-size: 0.86em; color: var(--fg); }
+.doc pre { margin: 0 0 16px; padding: 16px 18px; overflow-x: auto; border-radius: 12px; background: var(--card); font-size: 14px; line-height: 1.5; }
+.doc pre code { padding: 0; background: none; font-size: inherit; }
+/* The passage a reader must not skim past: the policy's one-line summary, the free-tier note. A plain
+   grey card, as the site's cards are. */
+.doc .callout { margin: 0 0 32px; padding: 24px 28px; border-radius: 18px; background: var(--card); }
+.doc .callout p { color: var(--fg); }
+.doc .callout p:last-child { margin-bottom: 0; }
+@media (max-width: 734px) {
+  .doc { padding: 48px 0 80px; }
+  .doc h1 { font-size: 34px; }
+  .doc h2 { margin-top: 48px; }
+  .doc .callout { padding: 20px; }
+}
+
+/* The footer: the page's own links over the house footer's legal line. */
+.doc-footer-links { display: flex; flex-wrap: wrap; gap: 8px 22px; padding: 18px 0 14px; color: #444; }
+.doc-footer-links a:hover { color: var(--ink); text-decoration: underline; }
+.doc-footer-legal p + p { margin-top: 6px; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<nav class="localnav theme-light" aria-label="Frame Multiplier">
+  <div class="localnav-content">
+    <span class="localnav-title">Frame Multiplier</span>
+    <div class="localnav-menu">
+      <ul class="localnav-links"><li><a href="../../frame-multiplier/privacy/">Privacy</a></li><li><a href="../../frame-multiplier/support/">Support</a></li></ul>
+    </div>
+  </div>
+</nav>
+<main id="main" class="doc theme-light">
+<div class="container doc-col">
+
+  <style>
+    /* The request form. Kept in this fragment so the other pages' shared CSS is unchanged. */
+    .req-form { margin: 0 0 32px; }
+    .req-form label { display: block; margin: 0 0 6px; font-size: 14px; font-weight: 600; color: var(--fg); }
+    .req-form .hint { display: block; margin: 0 0 8px; font-size: 13px; font-weight: 400; color: var(--fg-3); }
+    .req-form input[type="text"], .req-form input[type="email"], .req-form input[type="url"], .req-form textarea {
+      display: block; width: 100%; box-sizing: border-box; margin: 0 0 22px; padding: 11px 13px;
+      border: 1px solid var(--btn-line); border-radius: 10px; background: var(--bg); color: var(--fg);
+      font: inherit; font-size: 16px; line-height: 1.4;
+    }
+    .req-form textarea { min-height: 120px; resize: vertical; }
+    .req-form input:focus, .req-form textarea:focus { outline: 2px solid var(--focus, #0a84ff); outline-offset: 1px; }
+    .req-form .req-trap { position: absolute; left: -9999px; }
+    .req-form button[disabled] { opacity: 0.5; cursor: default; }
+    .req-note { font-size: 14px; color: var(--fg-3); }
+    .req-result { display: none; }
+    .req-result.is-shown { display: block; }
+  </style>
+
+  <h1>Frame Multiplier — Request setup</h1>
+  <p class="updated">Setup is free. You pay only if you release the frames.</p>
+
+  <p>Send us your Figma file and we set up the masters and run the rollout for you. You see every
+    size as a low-res JPEG preview before you decide anything.</p>
+
+  <h2>How it works</h2>
+
+  <ol>
+    <li><strong>Share the file.</strong> In Figma, click Share, set the link to
+      <strong>Anyone with the link · can view</strong>, and paste it below. View access is enough:
+      we work on our own copy, so nobody is added to your team and your file is not edited.</li>
+    <li><strong>We check the artwork.</strong> If it doesn't suit a rollout we reply and say why,
+      and that is the end of it.</li>
+    <li><strong>We send previews.</strong> You get a view-only link to our copy, with every size
+      filled by a low-res JPEG of its layout.</li>
+    <li><strong>You release the frames.</strong> Releasing costs $1 a frame, with a $99 minimum
+      per rollout. On payment we replace the JPEGs with the working frames and hand the file over.</li>
+  </ol>
+
+  <h2>What to have ready</h2>
+
+  <ul>
+    <li>Your finished master layouts on one page of the file.</li>
+    <li>The list of sizes you need, in the file or in the note below.</li>
+    <li>The names of the fonts used. If one is not a Google or Adobe font, say so and we will ask
+      how to get it.</li>
+  </ul>
+
+  <h2>Your request</h2>
+
+  <form class="req-form" id="req-form" action="https://formspree.io/f/xljbayey" method="POST">
+    <label for="req-name">Your name</label>
+    <input type="text" id="req-name" name="name" autocomplete="name" required>
+
+    <label for="req-email">Email</label>
+    <input type="email" id="req-email" name="email" autocomplete="email" required>
+
+    <label for="req-link">Figma file link
+      <span class="hint">Set to "Anyone with the link · can view".</span></label>
+    <input type="url" id="req-link" name="figma_link" placeholder="https://www.figma.com/design/…" required>
+
+    <label for="req-note">Sizes and notes
+      <span class="hint">The sizes you need, the fonts used, and anything we should know about the artwork.</span></label>
+    <textarea id="req-note" name="notes"></textarea>
+
+    <input type="hidden" name="plugin_release" id="req-v" value="">
+    <input type="hidden" name="plugin_summary" id="req-s" value="">
+    <input type="hidden" name="_subject" value="Frame Multiplier setup request">
+    <input type="text" name="_gotcha" class="req-trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <button type="submit" class="button button-primary" id="req-send">Send request</button>
+  </form>
+
+  <div class="callout req-result" id="req-ok" role="status">
+    <p><strong>Request sent.</strong> We reply by email once we have looked at the file.</p>
+  </div>
+  <div class="callout req-result" id="req-fail" role="alert">
+    <p><strong>The request did not send.</strong> Check your connection and try again, or email the
+      same details to us from the Support page.</p>
+  </div>
+
+  <p class="req-note">This form is sent through Formspree. It carries what you type above and, when
+    you arrive from the plugin, the plugin's release number and the line shown in its summary bar.
+    No part of your design is sent by the plugin or by this form.</p>
+
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search);
+      document.getElementById('req-v').value = (q.get('v') || '').slice(0, 40);
+      document.getElementById('req-s').value = (q.get('s') || '').slice(0, 200);
+      var form = document.getElementById('req-form');
+      var send = document.getElementById('req-send');
+      var show = function (id) {
+        document.getElementById('req-ok').classList.toggle('is-shown', id === 'req-ok');
+        document.getElementById('req-fail').classList.toggle('is-shown', id === 'req-fail');
+      };
+      // Without script the form still posts and Formspree shows its own confirmation page.
+      form.addEventListener('submit', function (ev) {
+        if (!window.fetch) return;
+        ev.preventDefault();
+        send.disabled = true;
+        fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+          .then(function (r) {
+            if (!r.ok) throw new Error('refused');
+            form.hidden = true;
+            show('req-ok');
+          })
+          .catch(function () { send.disabled = false; show('req-fail'); });
+      });
+    })();
+  </script>
+
+</div>
+</main>
+<footer class="footer">
+  <div class="footer-content">
+    <nav class="doc-footer-links" aria-label="Frame Multiplier pages"><a href="../../frame-multiplier/privacy/">Privacy</a><a href="../../frame-multiplier/support/">Support</a></nav>
+    <div class="footer-legal doc-footer-legal">
+      <p>Frame Multiplier · a plugin for Figma</p>
+      <p>Copyright © 2026 Monochrome Systems. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

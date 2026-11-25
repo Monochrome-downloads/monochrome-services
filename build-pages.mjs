@@ -74,6 +74,17 @@ const PAGES = [
     footerNote: 'Frame Multiplier · a plugin for Figma',
   },
   {
+    // The setup service's request form (2026-11-25). Reached from the plugin's "Request setup"
+    // link, which adds ?v=<release>&s=<summary line>. Not in the local nav until the service opens.
+    // The form posts to Formspree (free tier, 50 a month, for testing and development).
+    dir: 'frame-multiplier/request',
+    nav: 'frame-multiplier',
+    body: 'frame-multiplier-request-body.html',
+    title: 'Frame Multiplier — Request setup',
+    desc: 'Send us your Figma file and we set up the masters and run the rollout. Setup is free; you pay $1 a frame to release, $99 minimum.',
+    footerNote: 'Frame Multiplier · a plugin for Figma',
+  },
+  {
     dir: 'one-percent/privacy',
     nav: 'one-percent',
     body: 'one-percent-privacy-body.html',
